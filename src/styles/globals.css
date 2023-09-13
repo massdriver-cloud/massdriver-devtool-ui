@@ -1,0 +1,61 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+  overscroll-behavior-y: none;
+  color: #223354;
+}
+
+a {
+  color: inherit;
+  text-decoration: undeline;
+}
+
+em {
+  font-style: inherit;
+}
+
+.rjsf-markdown a:hover {
+  color: -webkit-link;
+}
+
+.rjsf-markdown em {
+  font-style: italic;
+}
+
+.rjsf .MuiButton-textSecondary {
+  color: #3c3c3c;
+}
+
+.react-flow__edge {
+  cursor: pointer;
+}
+.react-flow__edge path:hover {
+  stroke: rgb(217, 0, 0) !important;
+  stroke-width: 3 !important;
+}
+
+.react-flow__edge.selected path {
+  stroke: rgb(217, 0, 0) !important;
+  stroke-width: 3 !important;
+}
+
+.is-dragging * {
+  cursor: grabbing;
+}

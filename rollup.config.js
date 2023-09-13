@@ -1,11 +1,11 @@
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import babel from '@rollup/plugin-babel';
+import gzipPlugin from 'rollup-plugin-gzip';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import terser from '@rollup/plugin-terser';
 import image from '@rollup/plugin-image';
 
 export default {
@@ -15,11 +15,6 @@ export default {
       file: "dist/bundle.js",
       format: "esm",
       sourceMap: true
-    },
-    {
-      file: "dist/bundle.min.js",
-      format: "esm",
-      plugins: [terser()]
     }
   ],
   plugins: [
@@ -27,6 +22,7 @@ export default {
       extensions: [".css"],
     }),
     image(),
+    gzipPlugin(),
     nodeResolve({
       extensions: [".js"],
     }),
@@ -34,7 +30,11 @@ export default {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     babel({
-      presets: ["@babel/preset-react"],
+      presets: [
+        ["@babel/preset-react", {
+          "runtime": "automatic"
+        }]
+      ],
     }),
     commonjs(),
     serve({

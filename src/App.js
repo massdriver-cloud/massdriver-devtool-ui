@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
-import pianoCat from '../public/assets/piano_cat.gif'
+import React from 'react'
+import './styles/globals.css'
+import './styles/markdown.css'
+
+import CssBaseline from '@mui/material/CssBaseline'
+import ThemeProvider from './theme/ThemeProvider'
+import PageLayout from './components/PageLayout'
 
 function App() {
   return (
-    <div className="App">
-      <img src={pianoCat} alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-    </div>
+    <ThemeProvider>
+      <CssBaseline />
+      <PageLayout />
+    </ThemeProvider>
   );
 }
 
