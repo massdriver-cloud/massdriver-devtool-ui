@@ -3,6 +3,7 @@ import stylin from '../utils/stylin'
 
 import Header from './Header'
 import ConnectionsView from './ConnectionsView.container'
+import Form from './Form'
 
 import Box from '@mui/material/Box'
 
@@ -34,6 +35,10 @@ const PageLayout = () => {
 
   const TabComponent = TAB_COMPONENTS[tab]
 
+  fetch('http://127.0.0.1:8080/schema-connections.json')
+    .then(json => json.json())
+    .then(data => console.log)
+
   return (
     <PageContainer>
       <Header currentTabId={tab} onTabClick={onTabChange} tabs={TABS} />
@@ -42,6 +47,39 @@ const PageLayout = () => {
       ) : (
         <p>Error</p>
       )}
+      <Form
+        schema={{
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "title": "Add Service Account",
+          "description": "Create and manage Massdriver service accounts to delegate machine access to Massdriver's cli tool. External systems can use them to do things, like having your CI publish bundles.",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "A user friendly name for this service account.",
+              "examples": ["Github Actions", "Gitlab CI/CD"]
+            },
+            "locations": {
+              "type": "string",
+              "title": "Name",
+              "description": "A user friendly name for this service account.",
+              "examples": ["Github Actions", "Gitlab CI/CD"]
+            }
+          }
+        }}
+        uiSchema={{
+          name: {
+            "ui:field": "dnsZonesDropdown",
+            "cloud": "aws"
+          },
+          locations: {
+            "ui:field": "supportedCloudLocationsDropdown",
+            "cloudService": "aws"
+          }
+        }}
+      />
     </PageContainer>
   )
 }

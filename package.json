@@ -1,6 +1,6 @@
 {
   "name": "massdriver-devtool-ui",
-  "version": "1.0.0",
+  "version": "1.0.11",
   "description": "Basic react frontend for Massdriver's devtool.",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/server": "latest",
     "@emotion/styled": "^11.6.0",
-    "@massdriver/forms": "^1.0.1",
+    "@massdriver/forms": "^1.0.18",
     "@mui/icons-material": "^5.3.1",
     "@mui/lab": "^5.0.0-alpha.64",
     "@mui/material": "^5.4.0",
