@@ -1,85 +1,47 @@
-import { useState } from 'react'
 import stylin from '../utils/stylin'
 
-import Header from './Header'
+import TabButtons from './TabButtons'
 import ConnectionsView from './ConnectionsView.container'
-import Form from './Form'
+import FormView from './FormView.container'
 
 import Box from '@mui/material/Box'
 
 const TAB_COMPONENTS = {
-  "1": ConnectionsView
+  "1": ConnectionsView,
+  "3": FormView
 }
 
 const TABS = [
   {
     id: "1",
-    label: "Connections"
+    label: "Connections",
   },
   {
     id: "2",
-    label: "Secrets"
+    label: "Secrets",
   },
   {
     id: "3",
     label: "Form",
-    disabled: true,
-    tooltip: 'Please configure bundle connections before entering form view.'
   }
 ]
 
 const PageLayout = () => {
-  const [tab, setTab] = useState("1")
+  const urlParams = new URLSearchParams(window.location.search)
+  const currentTabId = TABS?.find(tab => tab.label.toLowerCase() === urlParams.get('tab'))?.id
 
-  const onTabChange = event => setTab(event.target.id)
+  const onTabChange = event => document.location = `?tab=${TABS.find(tab => tab.id === event.target.id).label.toLowerCase()}`
 
-  const TabComponent = TAB_COMPONENTS[tab]
-
-  fetch('http://127.0.0.1:8080/schema-connections.json')
-    .then(json => json.json())
-    .then(data => console.log)
+  const TabComponent = TAB_COMPONENTS[currentTabId] || ConnectionsView
 
   return (
     <PageContainer>
-      <Header currentTabId={tab} onTabClick={onTabChange} tabs={TABS} />
+      <TabButtons currentTabId={currentTabId} onTabClick={onTabChange} tabs={TABS} />
       {TabComponent ? (
         <TabComponent />
       ) : (
         <p>Error</p>
       )}
-      <Form
-        schema={{
-          "$schema": "http://json-schema.org/draft-07/schema",
-          "type": "object",
-          "title": "Add Service Account",
-          "description": "Create and manage Massdriver service accounts to delegate machine access to Massdriver's cli tool. External systems can use them to do things, like having your CI publish bundles.",
-          "required": ["name"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "title": "Name",
-              "description": "A user friendly name for this service account.",
-              "examples": ["Github Actions", "Gitlab CI/CD"]
-            },
-            "locations": {
-              "type": "string",
-              "title": "Name",
-              "description": "A user friendly name for this service account.",
-              "examples": ["Github Actions", "Gitlab CI/CD"]
-            }
-          }
-        }}
-        uiSchema={{
-          name: {
-            "ui:field": "dnsZonesDropdown",
-            "cloud": "aws"
-          },
-          locations: {
-            "ui:field": "supportedCloudLocationsDropdown",
-            "cloudService": "aws"
-          }
-        }}
-      />
     </PageContainer>
   )
 }

@@ -32,7 +32,9 @@ const TabsContainer = stylin(Paper)({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  padding: '20px 30px 12px',
+  pt: '20px',
+  px: '60px',
+  pb: '12px',
   flexWrap: 'flex'
 })
 

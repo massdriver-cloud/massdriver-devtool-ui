@@ -7,12 +7,26 @@ import ThemeProvider from './theme/ThemeProvider'
 import PageLayout from './components/PageLayout'
 import AuthProvider from './contexts/authContext'
 
+// Snackbar
+import { SnackbarProvider } from 'notistack'
+import BasicSnackbar from './components/BasicSnackbar'
+
+const SNACKBAR_VARIANT_MAP = {
+  success: BasicSnackbar,
+  error: BasicSnackbar,
+  warning: BasicSnackbar,
+  info: BasicSnackbar
+}
+
 function App() {
+
   return (
     <ThemeProvider>
       <CssBaseline />
       <AuthProvider>
-        <PageLayout />
+        <SnackbarProvider Components={SNACKBAR_VARIANT_MAP}>
+          <PageLayout />
+        </SnackbarProvider>
       </AuthProvider>
     </ThemeProvider>
   );

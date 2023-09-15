@@ -1,19 +1,18 @@
-import createForm from '@massdriver/forms'
+import Form from '@massdriver/forms'
 import { createServices } from './Form.helpers'
 import { useAuth } from '../contexts/authContext'
 
-const Form = props => {
+const CustomForm = props => {
   const { organizationId, serviceAccountId } = useAuth()
 
   const services = createServices({ organizationId, serviceAccountId })
 
-  const GeneratedForm = createForm({ services })
-
   return (
-    <GeneratedForm
+    <Form
+      services={services}
       {...props}
     />
   )
 }
 
-export default Form
+export default CustomForm
