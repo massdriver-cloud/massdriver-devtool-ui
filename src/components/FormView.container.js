@@ -29,6 +29,7 @@ const EnhancedFormView = () => {
       error={schemaError || uiSchemaError}
       onChange={onChange}
       onSubmit={onSubmit}
+      setFormData={setFormData}
       formData={formData}
       schema={schema}
       uiSchema={uiSchema}

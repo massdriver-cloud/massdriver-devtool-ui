@@ -18,11 +18,16 @@ const JSONBlock = stylin('pre')({
   background: '#D2DDF7',
   border: 'solid 1px #9AADD9',
   fontFamily: 'monospace',
-  borderRadius: '3px'
+  borderRadius: '3px',
+  width: '100%'
 })
 
 const Container = stylin(Box)({
   px: '10%',
   py: '20px',
-  backgroundColor: 'white'
+  backgroundColor: 'white',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1
 })
