@@ -57,12 +57,31 @@ const ConfigureForm = ({
           </HidingFieldWarning>
         )}
         <StyledForm
-          schema={schema}
+          schema={{
+            "$schema": "http://json-schema.org/draft-07/schema",
+            "type": "object",
+            "description": "Create and manage Massdriver service accounts to delegate machine access to Massdriver's cli tool. External systems can use them to do things, like having your CI publish bundles.",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name",
+                "description": "A user friendly name for this service account.",
+                "examples": ["Github Actions", "Gitlab CI/CD"]
+              }
+            }
+          }
+          }
           formData={formData}
           formContext={formContext}
           onChange={onFormDataChange}
           onSubmit={onSubmit}
-          uiSchema={uiSchema}
+          uiSchema={{
+            name: {
+              'ui:field': "dnsZonesDropdown",
+              cloud: 'aws'
+            }
+          }}
         >
           <Button
             variant="contained"

@@ -1,18 +1,15 @@
 import Form from '@massdriver/forms'
-import { createServices } from './Form.helpers'
-import { useAuth } from '../contexts/authContext'
+import useGetDnsZones from '../hooks/queries/useGetDnsZones'
+import useGetSupportedCloudLocations from '../hooks/queries/useGetSupportedCloudLocations'
 
-const CustomForm = props => {
-  const { organizationId, serviceAccountId } = useAuth()
-
-  const services = createServices({ organizationId, serviceAccountId })
-
-  return (
-    <Form
-      services={services}
-      {...props}
-    />
-  )
-}
+const CustomForm = props => (
+  <Form
+    services={{
+      getSupportedCloudLocations: useGetSupportedCloudLocations,
+      getDnsZones: useGetDnsZones
+    }}
+    {...props}
+  />
+)
 
 export default CustomForm
