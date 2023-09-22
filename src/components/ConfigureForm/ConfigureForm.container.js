@@ -11,7 +11,6 @@ import useToggle from '../../hooks/useToggle'
 const DEFAULT_PRESET_ITEM = { value: '-1', label: 'None' }
 
 const EnhancedConfigureForm = ({
-  manifestName,
   formData,
   setFormData,
   schema,
@@ -90,7 +89,6 @@ const EnhancedConfigureForm = ({
       formContext={{
         hasDeployed: false
       }}
-      manifestName={manifestName}
       schema={schema}
       uiSchema={uiSchema}
       formData={formData}

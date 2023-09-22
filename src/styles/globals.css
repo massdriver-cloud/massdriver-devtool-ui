@@ -20,6 +20,7 @@ html {
 body {
   overscroll-behavior-y: none;
   color: #223354;
+  background-color: #fff;
 }
 
 a {

@@ -3,11 +3,13 @@ import stylin from '../utils/stylin'
 import TabButtons from './TabButtons'
 import ConnectionsView from './ConnectionsView.container'
 import FormView from './FormView.container'
+import SecretsView from './SecretsView/SecretsView.container'
 
 import Box from '@mui/material/Box'
 
 const TAB_COMPONENTS = {
   "1": ConnectionsView,
+  "2": SecretsView,
   "3": FormView
 }
 

@@ -1,15 +1,14 @@
-import Form from '@massdriver/forms'
+import createForm from '@massdriver/forms'
+
+// Services
 import useGetDnsZones from '../hooks/queries/useGetDnsZones'
 import useGetSupportedCloudLocations from '../hooks/queries/useGetSupportedCloudLocations'
 
-const CustomForm = props => (
-  <Form
-    services={{
-      getSupportedCloudLocations: useGetSupportedCloudLocations,
-      getDnsZones: useGetDnsZones
-    }}
-    {...props}
-  />
-)
+const Form = createForm({
+  services: {
+    getSupportedCloudLocations: useGetSupportedCloudLocations,
+    getDnsZones: useGetDnsZones
+  }
+})
 
-export default CustomForm
+export default Form

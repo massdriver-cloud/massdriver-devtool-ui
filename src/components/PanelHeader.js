@@ -16,7 +16,8 @@ const HeaderContainer = stylin(Box)({
   px: '50px',
   borderBottom: 'solid 1px #e1e1e1',
   paddingBottom: '20px',
-  textAlign: 'left'
+  textAlign: 'left',
+  backgroundColor: '#f5f5fa',
 })
 
 const Title = stylin(Typography)({
