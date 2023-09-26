@@ -11,8 +11,13 @@ export const useAuth = () => useContext(AuthContext)
 const AuthProvider = ({ children, ...props }) => {
   const { data, loading, error } = useFetch('http://127.0.0.1:8080/config')
 
+  const credentials = {
+    organizationId: data.orgId,
+    serviceAccountId: data.apiKey
+  }
+
   return (
-    <AuthContext.Provider value={data} {...props}>
+    <AuthContext.Provider value={credentials} {...props}>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
