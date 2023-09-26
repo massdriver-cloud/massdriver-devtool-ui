@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 const useFetch = (url, options = {}) => {
   const { fetchOptions, skip } = options
 
-  const [data, setData] = useState(null)
-  const [response, setResponse] = useState(null)
-  const [error, setError] = useState(null)
+  const [data, setData] = useState(undefined)
+  const [response, setResponse] = useState(undefined)
+  const [error, setError] = useState(undefined)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     if (skip) return
@@ -39,7 +39,7 @@ const useFetch = (url, options = {}) => {
       abortController.abort()
     }
   }, [skip])
-  return { data, error, loading, response }
+  return { data, error, loading: loading || data === undefined, response }
 }
 
 export default useFetch

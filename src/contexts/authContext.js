@@ -1,17 +1,31 @@
 import { createContext, useContext } from 'react'
+import useFetch from '../hooks/useFetch'
+import LoadingSpinner from '../components/LoadingSpinner'
+import Custom404 from '../components/Custom404'
+
+import Typography from '@mui/material/Typography'
 
 const AuthContext = createContext()
 export const useAuth = () => useContext(AuthContext)
 
-const AuthProvider = props => {
-
-  const value = {
-    organizationId: '90ea395a-235c-4138-8c29-768422c8b443',
-    serviceAccountId: 'b4YqmStsYKunUvpYwWqRUu/5htiUJPcehF1lvQuL5DYuJ9fcr6K+bio+HapiI5wXMydyywPER5zElVCxMMMR4A=='
-  }
+const AuthProvider = ({ children, ...props }) => {
+  const { data, loading, error } = useFetch('http://127.0.0.1:8080/config')
 
   return (
-    <AuthContext.Provider value={value} {...props} />
+    <AuthContext.Provider value={data} {...props}>
+      {loading ? (
+        <LoadingSpinner />
+      ) : error ? (
+        <Custom404>
+          <Typography variant='h3'>
+            CLI variables not found
+          </Typography>
+          <Typography variant='h6'>
+            We encountered an parsing your CLI's variables. Please ensure you have both <pre style={{ display: 'inline' }}>MASSDRIVER_ORG_ID</pre> and <pre style={{ display: 'inline' }}>MASSDRIVER_API_KEY</pre> set.
+          </Typography>
+        </Custom404>
+      ) : children}
+    </AuthContext.Provider>
   )
 }
 
