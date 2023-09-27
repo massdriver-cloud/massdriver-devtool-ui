@@ -1,11 +1,12 @@
 import stylin from '../utils/stylin'
 
-import TabButtons from './TabButtons'
-import ConnectionsView from './ConnectionsView.container'
-import FormView from './FormView.container'
-import SecretsView from './SecretsView/SecretsView.container'
+import TabButtons from '../components/TabButtons'
+import ConnectionsView from '../components/ConnectionsView.container'
+import FormView from '../components/FormView.container'
+import SecretsView from '../components/SecretsView/SecretsView.container'
 
-import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
 const TAB_COMPONENTS = {
   "1": ConnectionsView,
@@ -28,7 +29,7 @@ const TABS = [
   }
 ]
 
-const PageLayout = () => {
+const ViewPage = () => {
   const urlParams = new URLSearchParams(window.location.search)
   const currentTabId = TABS?.find(tab => tab.label.toLowerCase() === urlParams.get('tab'))?.id
 
@@ -37,20 +38,28 @@ const PageLayout = () => {
   const TabComponent = TAB_COMPONENTS[currentTabId] || ConnectionsView
 
   return (
-    <PageContainer>
+    <>
       <TabButtons currentTabId={currentTabId} onTabClick={onTabChange} tabs={TABS} />
+      <DeployButton
+        variant="contained"
+        endIcon={<ArrowRightIcon sx={{ width: '25px', height: '25px' }} />}
+        href='/deploy'
+      >
+        Provision Bundle
+      </DeployButton>
       {TabComponent ? (
         <TabComponent />
       ) : (
         <p>Error</p>
       )}
-    </PageContainer>
+    </>
   )
 }
 
-export default PageLayout
+export default ViewPage
 
-const PageContainer = stylin(Box)({
-  width: '100%',
-  mx: 'auto'
+const DeployButton = stylin(Button)({
+  position: 'absolute',
+  top: 20,
+  right: 30
 })

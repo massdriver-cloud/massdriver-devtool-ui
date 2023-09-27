@@ -4,7 +4,7 @@ import './styles/markdown.css'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import ThemeProvider from './theme/ThemeProvider'
-import PageLayout from './components/PageLayout'
+import RouteController from './pages/RouteController'
 import AuthProvider from './contexts/authContext'
 
 // Snackbar
@@ -25,7 +25,7 @@ function App() {
       <CssBaseline />
       <AuthProvider>
         <SnackbarProvider Components={SNACKBAR_VARIANT_MAP}>
-          <PageLayout />
+          <RouteController />
         </SnackbarProvider>
       </AuthProvider>
     </ThemeProvider>

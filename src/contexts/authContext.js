@@ -12,8 +12,8 @@ const AuthProvider = ({ children, ...props }) => {
   const { data, loading, error } = useFetch('http://127.0.0.1:8080/config')
 
   const credentials = {
-    organizationId: data.orgId,
-    serviceAccountId: data.apiKey
+    organizationId: data?.orgID,
+    serviceAccountId: data?.apiKey
   }
 
   return (

@@ -39,7 +39,7 @@ const useFetch = (url, options = {}) => {
       abortController.abort()
     }
   }, [skip])
-  return { data, error, loading: loading || data === undefined, response }
+  return { data, error, loading: loading || data === undefined && !error, response }
 }
 
 export default useFetch

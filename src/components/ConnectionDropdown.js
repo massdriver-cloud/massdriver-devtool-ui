@@ -67,7 +67,7 @@ const ConnectionDropdown = ({ type, value, onChange }) => {
         </Typography>
       ) : formattedArtifacts?.length > 0 ? (
         formattedArtifacts.map(artifact => (
-          <MenuItem key={artifact?.id} value={artifact}>
+          <MenuItem key={artifact?.id} value={artifact?.id}>
             {artifact?.name}
           </MenuItem>
         ))
