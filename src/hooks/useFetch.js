@@ -14,7 +14,11 @@ const useFetch = (url, options = {}) => {
     const doFetch = async () => {
       setLoading(true)
       try {
-        const res = await fetch(url, fetchOptions) // eslint-disable-line no-undef
+        const res = await fetch(url, {
+          'Cache-Control': 'no-cache',
+          cache: "no-store",
+          ...fetchOptions
+        }) // eslint-disable-line no-undef
         setResponse(res)
         const respContent = (
           fetchOptions?.headers?.['Content-Type'] || ''

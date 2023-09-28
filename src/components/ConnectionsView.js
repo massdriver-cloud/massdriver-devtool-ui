@@ -6,10 +6,20 @@ import ConnectionDropdown from './ConnectionDropdown'
 
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import Typography from '@mui/material/Typography'
 
-const ConnectionsView = ({ types, onChange, onSubmit, formData, loading, error }) =>
+const ConnectionsView = ({
+  types,
+  onChange,
+  onSubmit,
+  formData,
+  loading,
+  error,
+  submitLoading,
+  submitErrors,
+  hasConnectionSetMap
+}) =>
   <>
     <PanelHeader
       label="Connections"
@@ -32,10 +42,14 @@ const ConnectionsView = ({ types, onChange, onSubmit, formData, loading, error }
           <Fields spacing={6}>
             {types.map(type => (
               <ConnectionDropdown
+                required
                 key={type}
                 type={type}
                 onChange={onChange}
                 value={formData[type] || ''}
+                error={Boolean(submitErrors[type])}
+                helperText={submitErrors[type]}
+                hasConnectionSet={hasConnectionSetMap[type]}
               />
             ))}
           </Fields>
@@ -44,6 +58,7 @@ const ConnectionsView = ({ types, onChange, onSubmit, formData, loading, error }
             variant="contained"
             size="large"
             fullWidth
+            loading={submitLoading}
           >
             Save
           </SubmitButton>
@@ -63,7 +78,7 @@ const Container = stylin(Box)({
 const Fields = stylin(Stack)({
 })
 
-const SubmitButton = stylin(Button)({
+const SubmitButton = stylin(LoadingButton)({
   mt: '30px',
   mb: '10px',
 })

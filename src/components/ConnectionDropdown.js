@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
+import Tooltip from '@mui/material/Tooltip'
 
 const GET_ARTIFACTS = `
     query artifacts($organizationId: ID!, $input: ArtifactsInput) {
@@ -22,7 +23,7 @@ const GET_ARTIFACTS = `
     }
   `
 
-const ConnectionDropdown = ({ type, value, onChange }) => {
+const ConnectionDropdown = ({ type, value, onChange, hasConnectionSet, ...props }) => {
   const { organizationId, serviceAccountId } = useAuth()
 
   const { data, loading, error: loadingError } = useFetch(GQL_API_ENDPOINT, {
@@ -56,7 +57,37 @@ const ConnectionDropdown = ({ type, value, onChange }) => {
       onChange={onChange}
       label={type}
       name={type}
+      SelectProps={{
+        renderValue: value =>
+          value === 'currentlySet'
+            ? (
+              <Tooltip
+                title='This connection has already been set. Feel free to update if desired.'
+                placement="top-start"
+              >
+                <Typography>Currently Set Connection</Typography>
+              </Tooltip>
+            )
+            : formattedArtifacts?.find(art => art.id === value)?.name
+      }}
+      {...props}
     >
+      <Tooltip
+        title='The value that is currently set for this connection.'
+        key="prev"
+        value="currentlySet"
+        placement="top-start"
+      >
+        <MenuItem
+          key="prev"
+          value="currentlySet"
+          sx={{
+            ...(loading || loadingError || formattedArtifacts?.length < 1 || !hasConnectionSet ? { display: 'none !important' } : {})
+          }}
+        >
+          Currently Set Connection
+        </MenuItem>
+      </Tooltip>
       {loading ? (
         <LoadingContainer>
           <CircularProgress size={20} />
