@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
-// import FormsMarkdown from '../markdown/FormsMarkdown'
+import FormsMarkdown from '../markdown/FormsMarkdown'
 
 const SecretLine = ({
   title,
@@ -68,13 +68,20 @@ const SecretLine = ({
               Cancel
             </Button>
           )}
-          <SaveButton
-            variant='contained'
-            loading={isLoading}
-            onClick={!!previousValue ? onEditSave : onSubmit} // eslint-disable-line
+          <Tooltip
+            title='Secrets are not savable here.'
           >
-            Save
-          </SaveButton>
+            <span>
+              <SaveButton
+                disabled
+                variant='contained'
+                loading={isLoading}
+                onClick={!!previousValue ? onEditSave : onSubmit} // eslint-disable-line
+              >
+                Save
+              </SaveButton>
+            </span>
+          </Tooltip>
         </>
       ) : (
         <>
@@ -143,7 +150,7 @@ const SecretLine = ({
       )}
     </TextLine>
     <SecretDescription variant='subtitle2'>
-      {/* <FormsMarkdown>{description}</FormsMarkdown> */}
+      <FormsMarkdown>{description}</FormsMarkdown>
     </SecretDescription>
     {hasErrors && <SecretError>{formErrors?.join('\n')}</SecretError>}
     <SecretsDivider />

@@ -22,7 +22,8 @@ const ConfigureForm = ({
   shouldShowPresets = true,
   allFieldsToggled,
   onToggleAllFieldsChange,
-  formContext
+  formContext,
+  submitButton: SubmitButton
 }) => (
   <Container>
     {shouldShowPresets && (
@@ -63,13 +64,15 @@ const ConfigureForm = ({
           onSubmit={onSubmit}
           uiSchema={uiSchema}
         >
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{ mt: '20px' }}
-          >
-            Validate
-          </Button>
+          {SubmitButton ? SubmitButton : (
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ mt: '20px' }}
+            >
+              Validate
+            </Button>
+          )}
         </StyledForm>
       </>
     )}

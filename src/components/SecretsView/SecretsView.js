@@ -11,7 +11,7 @@ const SecretsView = ({ loading, error, secretFields, bundleName }) => (
   <>
     <PanelHeader
       label="Secrets"
-      subLabel="View and set secrets for your test bundle."
+      subLabel="View how massdriver will render your configured secrets in the UI."
     />
     {
       loading ? (

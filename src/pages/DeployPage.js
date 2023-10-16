@@ -1,36 +1,9 @@
-import StepWizard from '../components/StepWizard/StepWizard'
+import DeployWizard from '../components/DeployWizard/DeployWizard'
 
 const DeployPage = () => {
 
   return (
-    <StepWizard
-      stepLabels={[
-        {
-          label: 'Choose Connections'
-        },
-        {
-          label: 'Set Secrets'
-        },
-        {
-          label: 'Configure Package'
-        },
-        {
-          label: 'Deploy'
-        },
-        {
-          label: 'View Artifact'
-        }
-      ]}
-      wizardProps={{
-        isLazyMount: true,
-        styles: {
-          width: '960px'
-        }
-      }}
-      hideFirstStepNav
-    >
-
-    </StepWizard>
+    <DeployWizard />
   )
 }
 

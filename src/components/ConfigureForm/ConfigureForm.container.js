@@ -15,7 +15,8 @@ const EnhancedConfigureForm = ({
   setFormData,
   schema,
   onSubmit,
-  uiSchema: passedUiSchema
+  uiSchema: passedUiSchema,
+  submitButton
 }) => {
   const [uiSchema, setUiSchema] = useState({})
   const {
@@ -101,6 +102,7 @@ const EnhancedConfigureForm = ({
       allFieldsToggled={allFieldsToggled}
       onToggleAllFieldsChange={onToggleAllFieldsChange}
       shouldShowPresets={Boolean(presetsMenuData)}
+      submitButton={submitButton}
     />
   )
 }
