@@ -31,11 +31,11 @@ const TABS = [
 
 const ViewPage = () => {
   const urlParams = new URLSearchParams(window.location.search)
-  const currentTabId = TABS?.find(tab => tab.label.toLowerCase() === urlParams.get('tab'))?.id
+  const currentTabId = TABS?.find(tab => tab.label.toLowerCase() === urlParams.get('tab'))?.id || "1"
 
   const onTabChange = event => document.location = `?tab=${TABS.find(tab => tab.id === event.target.id).label.toLowerCase()}`
 
-  const TabComponent = TAB_COMPONENTS[currentTabId] || ConnectionsView
+  const TabComponent = TAB_COMPONENTS[currentTabId]
 
   return (
     <>

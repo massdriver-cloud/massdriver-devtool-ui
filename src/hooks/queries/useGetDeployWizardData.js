@@ -6,8 +6,8 @@ const useGetDeployWizardData = () => {
 
   const { data: connectionsData, loading: connectionsLoading, error: connectionsError } = useFetch('http://127.0.0.1:8080/schema-connections.json')
 
-  const hasSecrets = secretsData ? secretsData?.secretFields?.length > 0 : undefined
-  const hasConnections = connectionsData ? Object.keys(connectionsData?.properties || {}).length > 0 : undefined
+  const hasSecrets = !secretsLoading ? secretsData?.secretFields?.length > 0 : undefined
+  const hasConnections = !connectionsLoading ? Object.keys(connectionsData?.properties || {}).length > 0 : undefined
 
   return {
     hasSecrets,

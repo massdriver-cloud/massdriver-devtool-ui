@@ -9,12 +9,14 @@ import Custom404 from '../Custom404'
 
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import Box from '@mui/material/Box'
 
 
 const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [formData, setFormData] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   const { schema, uiSchema, loading, error } = useGetFormSchemas()
 
@@ -24,14 +26,39 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
       ...(newFormData || {})
     })
 
-  const onSubmit = ({ }) => {
+  const onSubmit = () => {
+    setIsLoading(true)
 
-    enqueueSnackbar("Input passed form validation.", {
-      variant: 'success',
-      preventDuplicate: true,
-      autoHideDuration: 5000,
-      disableWindowBlurListener: true
+    fetch('http://127.0.0.1:8080/bundle/deploy', {
+      method: 'POST',
+      headers: {
+        'Content-type': "application/json"
+      },
+      body: JSON.stringify({
+        action: 'provision',
+        params: formData,
+      })
     })
+      .then(res => res.json())
+      .then(data => {
+        enqueueSnackbar("Started Deployment.", {
+          variant: 'info',
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+          disableWindowBlurListener: true
+        })
+        next({ containerId: data?.containerID, action: 'provision' })
+      })
+      .catch(err => {
+        console.log(err)
+        enqueueSnackbar("There was an issue starting the deployment.", {
+          variant: 'error',
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+          disableWindowBlurListener: true
+        })
+      })
+      .finally(() => setIsLoading(false))
   }
 
   const onBack = () => back({ ...data?.secretsData })
@@ -60,27 +87,29 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
       submitButton={(
         <NavContainer currentSlideIndex={currentSlideIndex}>
           {currentSlideIndex === 0 ? (
-            <NavButton
+            <DeployButton
               onClick={onSubmit}
               fullWidth
               variant="contained"
+              loading={isLoading}
             >
               Deploy
-            </NavButton>
+            </DeployButton>
           ) : (
             <>
-              <NavButton
+              <BackButton
                 onClick={onBack}
                 variant="contained"
               >
                 Back
-              </NavButton>
-              <NavButton
+              </BackButton>
+              <DeployButton
                 onClick={onSubmit}
                 variant="contained"
+                loading={isLoading}
               >
                 Deploy
-              </NavButton>
+              </DeployButton>
             </>
           )}
         </NavContainer>
@@ -91,7 +120,11 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
 
 export default EnhancedFormStep
 
-const NavButton = stylin(Button)({
+const BackButton = stylin(Button)({
+  mx: 0
+})
+
+const DeployButton = stylin(LoadingButton)({
   mx: 0
 })
 

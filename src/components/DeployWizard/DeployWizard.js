@@ -7,6 +7,8 @@ import PanelHeader from '../PanelHeader'
 import ConnectionsStep from './ConnectionsStep.container'
 import SecretsStep from './SecretsStep.container'
 import FormStep from './FormStep.container'
+import ResourceProgressStep from './ResourceProgressStep.container'
+import CompleteStep from './CompleteStep.container'
 
 import LoadingSpinner from '../LoadingSpinner'
 import Custom404 from '../Custom404'
@@ -47,39 +49,16 @@ const DeployWizard = () => {
         ) : (
           <WaterfallSlides
             components={[
-              ...(hasConnections ? [ConnectionsStep] : []),
-              ...(hasSecrets ? [SecretsStep] : []),
-              FormStep
+              ...(hasConnections === true ? [ConnectionsStep] : []),
+              ...(hasSecrets === true ? [SecretsStep] : []),
+              FormStep,
+              ResourceProgressStep,
+              CompleteStep,
+              ResourceProgressStep,
+              CompleteStep,
             ]}
             initialData={{}}
           />
-          // <StepWizard
-          //   stepLabels={[
-          //     ...(hasConnections === true ? [{
-          //       label: 'Choose Connections'
-          //     }] : []),
-          //     ...(hasSecrets === true ? [{
-          //       label: 'Set Secrets'
-          //     }] : []),
-          //     {
-          //       label: 'Configure Package'
-          //     },
-          //     {
-          //       label: 'Choose Provisioner'
-          //     },
-          //     {
-          //       label: 'Deploy'
-          //     }
-          //   ]}
-          //   hideFirstStepNav
-          // >
-          //   {hasConnections && (
-          //     <ConnectionsStep />
-          //   )}
-          //   {hasSecrets === true && (
-          //     <SecretsStep />
-          //   )}
-          // </StepWizard>
         )
       }
     </>

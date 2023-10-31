@@ -31,8 +31,6 @@ const EnhancedSecretLineItem = ({
     setFormData(bundleData?.[name] || '')
   }, [])
 
-  console.log({ bundleSecretsData, previousValue })
-
   const setSecret = successMessage => {
     const newBundleSecretsData = { ...bundleSecretsData, [name]: formData }
     setBundleSecretsData(newBundleSecretsData)

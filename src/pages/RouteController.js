@@ -32,5 +32,6 @@ export default RouteController
 
 const PageContainer = stylin(Box)({
   width: '100%',
-  mx: 'auto'
+  mx: 'auto',
+  height: '100%'
 })

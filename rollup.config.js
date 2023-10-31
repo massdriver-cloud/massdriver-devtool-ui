@@ -13,7 +13,7 @@ export default {
   output: [
     {
       file: "dist/bundle.js",
-      format: "esm",
+      format: "cjs",
       sourceMap: true
     }
   ],

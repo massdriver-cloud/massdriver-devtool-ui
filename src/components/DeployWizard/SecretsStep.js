@@ -27,10 +27,10 @@ const SecretsStep = ({
     ) : error ? (
       <Custom404 small>
         <Typography variant='h3'>
-          Connections not found
+          Secrets not found
         </Typography>
         <Typography variant='h6'>
-          We encountered an issue parsing your bundle connections. Please restart the dev server and try again.
+          We encountered an issue parsing your bundle secrets. Please restart the dev server and try again.
         </Typography>
       </Custom404>
     ) : (
