@@ -1,11 +1,11 @@
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import babel from '@rollup/plugin-babel';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import gzipPlugin from 'rollup-plugin-gzip';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import terser from '@rollup/plugin-terser';
 import image from '@rollup/plugin-image';
 
 export default {
@@ -13,13 +13,8 @@ export default {
   output: [
     {
       file: "dist/bundle.js",
-      format: "esm",
+      format: "cjs",
       sourceMap: true
-    },
-    {
-      file: "dist/bundle.min.js",
-      format: "esm",
-      plugins: [terser()]
     }
   ],
   plugins: [
@@ -27,21 +22,31 @@ export default {
       extensions: [".css"],
     }),
     image(),
+    gzipPlugin(),
     nodeResolve({
       extensions: [".js"],
+      browser: true
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     babel({
-      presets: ["@babel/preset-react"],
+      exclude: 'node_modules/**',
+      presets: [
+        ["@babel/preset-react", {
+          "runtime": "automatic"
+        }]
+      ],
     }),
-    commonjs(),
+    commonjs({
+      include: 'node_modules/**',
+    }),
     serve({
       open: false,
       verbose: true,
       contentBase: ["", "public"],
-      host: "localhost",
+      historyApiFallback: true,
+      host: "127.0.0.1",
       port: 3000
     }),
     livereload({ watch: "dist" })
