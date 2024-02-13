@@ -8,6 +8,8 @@ import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 
+const production = !process.env.ROLLUP_WATCH
+
 export default {
   input: "src/index.js",
   output: [
@@ -28,7 +30,7 @@ export default {
       browser: true
     }),
     replace({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.BUILD || 'development')
     }),
     babel({
       exclude: 'node_modules/**',
@@ -41,7 +43,7 @@ export default {
     commonjs({
       include: 'node_modules/**',
     }),
-    serve({
+    !production && serve({
       open: false,
       verbose: true,
       contentBase: ["", "public"],
@@ -49,6 +51,6 @@ export default {
       host: "127.0.0.1",
       port: 3000
     }),
-    livereload({ watch: "dist" })
+    !production && livereload({ watch: "dist" })
   ]
 }
