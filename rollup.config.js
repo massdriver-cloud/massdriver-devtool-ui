@@ -8,7 +8,7 @@ import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 
-const production = process.env.BUILD = 'production'
+const production = !process.env.ROLLUP_WATCH
 
 export default {
   input: "src/index.js",
@@ -30,7 +30,7 @@ export default {
       browser: true
     }),
     replace({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.BUILD || 'development')
     }),
     babel({
       exclude: 'node_modules/**',
