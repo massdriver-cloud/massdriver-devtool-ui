@@ -26,7 +26,7 @@ const AuthProvider = ({ children, ...props }) => {
             CLI variables not found
           </Typography>
           <Typography variant='h6'>
-            We encountered an parsing your CLI's variables. Please ensure you have both <pre style={{ display: 'inline' }}>MASSDRIVER_ORG_ID</pre> and <pre style={{ display: 'inline' }}>MASSDRIVER_API_KEY</pre> set.
+            We encountered an issue parsing your CLI's variables. Please ensure you have both <pre style={{ display: 'inline' }}>MASSDRIVER_ORG_ID</pre> and <pre style={{ display: 'inline' }}>MASSDRIVER_API_KEY</pre> set and the cli server running.
           </Typography>
         </Custom404>
       ) : children}
