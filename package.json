@@ -5,7 +5,7 @@
   "browser": "index.js",
   "scripts": {
     "start": "rollup -c -w",
-    "build": "rollup -c -W"
+    "build": "rollup -c --environment BUILD:production"
   },
   "repository": {
     "type": "git",
