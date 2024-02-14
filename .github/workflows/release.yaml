@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      # builds the source code
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      # gzips the build file along with everything in the public directory
+      - run: tar -cvzf ./dist/devtool-ui.tar.gz ./dist/bundle.js ./public/*
+      # custs a new release with the gzip as an artifact
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./dist/devtool-ui.tar.gz
+          generateReleaseNotes: true
