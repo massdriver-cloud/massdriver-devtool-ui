@@ -12,7 +12,7 @@ const production = !process.env.ROLLUP_WATCH
 export default {
   /**
    * This is needed to hide a warning that rollup gives to client side libraries. The warning is apparently not 
-   * something to worry about, but there is also no "proper" way of making it go away. The curreent suggested 
+   * something to worry about, but there is also no "proper" way of making it go away. The current suggested 
    * solution is to hide the warning with a custom 'onwarn' function.
    * 
    * Github links that mention the issue:
