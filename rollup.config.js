@@ -1,7 +1,6 @@
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import babel from '@rollup/plugin-babel';
-import gzipPlugin from 'rollup-plugin-gzip';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
@@ -42,7 +41,6 @@ export default {
       extensions: [".css"],
     }),
     image(),
-    gzipPlugin(),
     nodeResolve({
       extensions: [".js"],
       browser: true
