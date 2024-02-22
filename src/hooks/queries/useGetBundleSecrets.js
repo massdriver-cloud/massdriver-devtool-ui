@@ -3,7 +3,7 @@ import useFetch from '../useFetch'
 
 const useGetBundleSecrets = () => {
   const { data, loading, error } = useFetch('http://127.0.0.1:8080/bundle/secrets')
-  const { data: schema, loading: schemaLoading, error: schemaError } = useFetch('http://127.0.0.1:8080/schema-params.json')
+  const { data: schema, loading: schemaLoading, error: schemaError } = useFetch('http://127.0.0.1:8080/bundle-server/schema-params.json')
 
   return {
     data: (data && schema) ? {

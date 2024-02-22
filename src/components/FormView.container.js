@@ -7,8 +7,8 @@ const EnhancedFormView = () => {
   const { enqueueSnackbar } = useSnackbar()
   const [formData, setFormData] = useState({})
 
-  const { data: schema, loading: schemaLoading, error: schemaError } = useFetch('http://127.0.0.1:8080/schema-params.json')
-  const { data: uiSchema, loading: uiSchemaLoading, error: uiSchemaError } = useFetch('http://127.0.0.1:8080/schema-ui.json')
+  const { data: schema, loading: schemaLoading, error: schemaError } = useFetch('http://127.0.0.1:8080/bundle-server/schema-params.json')
+  const { data: uiSchema, loading: uiSchemaLoading, error: uiSchemaError } = useFetch('http://127.0.0.1:8080/bundle-server/schema-ui.json')
 
   const onChange = ({ formData: newFormData }) =>
     setFormData({
