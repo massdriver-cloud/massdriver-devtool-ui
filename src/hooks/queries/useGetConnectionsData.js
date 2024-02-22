@@ -6,7 +6,7 @@ import { getTypeFromId } from '../../components/ConnectionsView.helpers'
 const useGetConnectionsData = () => {
   const { data: currentlySetConnectionsData, loading: currentlySetConnectionsLoading, error: currentlySetConnectionsError } = useFetch('http://127.0.0.1:8080/bundle/connections')
 
-  const { data, loading, error } = useFetch('http://127.0.0.1:8080/schema-connections.json')
+  const { data, loading, error } = useFetch('http://127.0.0.1:8080/bundle-server/schema-connections.json')
 
   const connectionTypesMap = useMemo(() => Object.keys(data?.properties || {}).reduce((acc, key) => ({ ...acc, [getTypeFromId(data?.properties?.[key]?.$id)]: key }), {}), [data, currentlySetConnectionsData])
 
