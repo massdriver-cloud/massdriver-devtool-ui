@@ -26,7 +26,7 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
       ...(newFormData || {})
     })
 
-  const onSubmit = () => {
+  const onSubmit = ({ }) => {
     setIsLoading(true)
 
     fetch('http://127.0.0.1:8080/bundle/deploy', {
@@ -88,10 +88,10 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
         <NavContainer currentSlideIndex={currentSlideIndex}>
           {currentSlideIndex === 0 ? (
             <DeployButton
-              onClick={onSubmit}
               fullWidth
               variant="contained"
               loading={isLoading}
+              type="submit"
             >
               Deploy
             </DeployButton>
@@ -104,9 +104,9 @@ const EnhancedFormStep = ({ currentSlideIndex, back, next, data }) => {
                 Back
               </BackButton>
               <DeployButton
-                onClick={onSubmit}
                 variant="contained"
                 loading={isLoading}
+                type="submit"
               >
                 Deploy
               </DeployButton>
