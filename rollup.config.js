@@ -2,6 +2,7 @@ import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
@@ -41,12 +42,26 @@ export default {
       extensions: [".css"],
     }),
     image(),
+    alias({
+      entries: [
+        { find: 'pages', replacement: __dirname + '/src/pages' },
+        { find: 'components', replacement: __dirname + '/src/components' },
+        { find: 'utils', replacement: __dirname + '/src/utils' },
+        { find: 'helpers', replacement: __dirname + '/src/helpers' },
+        { find: 'hooks', replacement: __dirname + '/src/hooks' },
+        { find: 'constants', replacement: __dirname + '/src/constants' },
+        { find: 'contexts', replacement: __dirname + '/src/contexts' }
+      ]
+    }),
     nodeResolve({
       extensions: [".js"],
       browser: true
     }),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.BUILD || 'development')
+      // preventAssignment: true,
+      values: {
+        'process.env.NODE_ENV': JSON.stringify(process.env.BUILD || 'development'),
+      }
     }),
     babel({
       exclude: 'node_modules/**',
@@ -57,7 +72,7 @@ export default {
       ],
     }),
     commonjs({
-      include: 'node_modules/**',
+      include: 'node_modules/**'
     }),
     !production && serve({
       open: false,

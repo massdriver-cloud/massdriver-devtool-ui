@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import logo from '../../public/assets/logo-black.svg'
+import logo from '../../public/logo-black.svg'
 
 const Custom404 = ({ small, children, sx, ...props }) => (
   <Stack
