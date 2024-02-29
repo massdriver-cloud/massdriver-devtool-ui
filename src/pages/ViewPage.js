@@ -3,6 +3,7 @@ import stylin from 'utils/stylin'
 import ConnectionsSection from 'components/ConnectionsSection/ConnectionsSection.container'
 import ArtifactsSection from 'components/ArtifactsSection/ArtifactsSection.container'
 import SecretsSection from 'components/SecretsSection/SecretsSection.container'
+import FormSection from 'components/FormSection/FormSection.container'
 
 import Box from '@mui/material/Box'
 
@@ -12,7 +13,8 @@ const ViewPage = () => {
     <PageContainer>
       {/* <ConnectionsSection /> */}
       {/* <ArtifactsSection /> */}
-      <SecretsSection />
+      {/* <SecretsSection /> */}
+      <FormSection />
     </PageContainer>
   )
 }

@@ -15,7 +15,7 @@ const SecretsSection = ({
 }) => (
   <Section
     title={SECTION_TITLE}
-    description={<> A list of the bundle's secrets outlined in the <strong>massdriver.yaml</strong>. In the UI, these will be found under the <strong>secrets</strong> tab in the package drawer. </>}
+    description={<>A list of the bundle's secrets outlined in the <strong>massdriver.yaml</strong>. In the UI, these will be found under the <strong>secrets</strong> tab in the package drawer.</>}
   >
     <Container>
       {

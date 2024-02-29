@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSnackbar } from 'notistack'
 import stylin from '../../utils/stylin'
 
-import ConfigureForm from '../ConfigureForm/ConfigureForm.container'
+import ConfigureForm from '../OldConfigureForm/ConfigureForm.container'
 import useGetFormSchemas from '../../hooks/queries/useGetFormSchemas'
 import LoadingSpinner from '../LoadingSpinner'
 import Custom404 from '../Custom404'

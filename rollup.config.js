@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -71,6 +72,7 @@ export default {
         }]
       ],
     }),
+    json(),
     commonjs({
       include: 'node_modules/**'
     }),
