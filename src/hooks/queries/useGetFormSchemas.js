@@ -1,6 +1,6 @@
-import useFetch from '../useFetch'
+import useFetch from 'hooks/useFetch'
 
-const useGetDeployWizardData = () => {
+const useGetFormSchemas = () => {
   const { data: schema, loading: schemaLoading, error: schemaError } = useFetch('http://127.0.0.1:8080/bundle-server/schema-params.json')
   const { data: uiSchema, loading: uiSchemaLoading, error: uiSchemaError } = useFetch('http://127.0.0.1:8080/bundle-server/schema-ui.json')
 
@@ -12,4 +12,4 @@ const useGetDeployWizardData = () => {
   }
 }
 
-export default useGetDeployWizardData
+export default useGetFormSchemas
