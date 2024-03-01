@@ -11,7 +11,7 @@ const LinearHeaderLogo = ({ className, ...restProps }) => (
   >
     <LogoImage
       className={className}
-      src='massdriver-logo-white-for-dark-bg.svg'
+      src='assets/massdriver-logo-white-for-dark-bg.svg'
       alt='Massdriver'
     />
   </Typography>
