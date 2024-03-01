@@ -11,10 +11,16 @@ const ViewPage = () => {
 
   return (
     <PageContainer>
-      {/* <ConnectionsSection /> */}
-      {/* <ArtifactsSection /> */}
-      {/* <SecretsSection /> */}
-      <FormSection />
+      <FlexBox>
+        <FlexBox direction="column">
+          <ConnectionsSection />
+          <ArtifactsSection />
+        </FlexBox>
+        <SecretsSection />
+      </FlexBox>
+      <Box pt="26px">
+        <FormSection />
+      </Box>
     </PageContainer>
   )
 }
@@ -25,3 +31,12 @@ const PageContainer = stylin(Box)({
   px: '30px',
   py: '20px'
 })
+
+const FlexBox = stylin(Box, ['direction'])(({ direction }) => ({
+  display: 'flex',
+  gap: '26px',
+  flexDirection: direction || {
+    xs: 'column',
+    md: 'row'
+  }
+}))
