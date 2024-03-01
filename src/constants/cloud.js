@@ -18,15 +18,15 @@ export const CLOUD_CREDENTIAL_LABEL_GCP = 'GCP Service Account'
 export const CLOUD_CREDENTIAL_LABEL_KUBERNETES = 'Kubernetes Cluster'
 export const CLOUD_CREDENTIAL_LABEL_AZURE = 'Azure Service Principal'
 
-export const CLOUD_ICON_AWS = '/clouds/aws-icon.png'
-export const CLOUD_ICON_GCP = '/clouds/gcp-icon.png'
-export const CLOUD_ICON_AZURE = '/clouds/azure-icon.png'
-export const CLOUD_ICON_KUBERNETES = '/clouds/kubernetes-icon.png'
+export const CLOUD_ICON_AWS = '/assets/clouds/aws-icon.png'
+export const CLOUD_ICON_GCP = '/assets/clouds/gcp-icon.png'
+export const CLOUD_ICON_AZURE = '/assets/clouds/azure-icon.png'
+export const CLOUD_ICON_KUBERNETES = '/assets/clouds/kubernetes-icon.png'
 
-export const CLOUD_LOGO_AWS = '/clouds/aws-logo.png'
-export const CLOUD_LOGO_GCP = '/clouds/gcp-logo.png'
-export const CLOUD_LOGO_KUBERNETES = '/clouds/kubernetes-logo.png'
-export const CLOUD_LOGO_AZURE = '/clouds/azure-logo.png'
+export const CLOUD_LOGO_AWS = '/assets/clouds/aws-logo.png'
+export const CLOUD_LOGO_GCP = '/assets/clouds/gcp-logo.png'
+export const CLOUD_LOGO_KUBERNETES = '/assets/clouds/kubernetes-logo.png'
+export const CLOUD_LOGO_AZURE = '/assets/clouds/azure-logo.png'
 
 export const CLOUD_LABELS = {
   [AWS]: CLOUD_LABEL_AWS,
