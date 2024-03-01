@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import useFetch from '../useFetch'
 
-import { getTypeFromId } from '../../components/ConnectionsView.helpers'
+const getTypeFromId = id => id ? id.split('/').slice(id.split('/').length - 2).join('/') : ''
 
 const useGetConnectionsData = () => {
   const { data: currentlySetConnectionsData, loading: currentlySetConnectionsLoading, error: currentlySetConnectionsError } = useFetch('http://127.0.0.1:8080/bundle/connections')

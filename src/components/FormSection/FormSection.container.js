@@ -8,14 +8,13 @@ import {
   getPresetMenuData,
   generateHiddenUiSchemaFromPresetData
 } from 'components/ConfigPanel/ConfigPanel.helpers'
-import { isObjectAndEmpty, objectDeepMerge } from 'utils/data'
+import { isObjectAndEmpty, objectDeepMerge, expensiveJankyJsonCopy } from 'utils/data'
 import useGetFormSchemas from 'hooks/queries/useGetFormSchemas'
 import useNotice from 'hooks/useNotice'
 
 // TODO: Update the form npm package to allow exporting these helper functions. 
 //       Once done, replace this implementation with the one from the package.
 import Ajv from 'ajv'
-import { expensiveJankyJsonCopy } from 'utils/data'
 const sanitizeFormData = (formData, formSchema) => () => {
   const ajv = new Ajv({
     strict: false,
@@ -69,7 +68,6 @@ const EnhancedFormSection = () => {
 
   const onConfigOptionClick = event => {
     if (event.currentTarget.id === 'expand-option') {
-      console.log({ event })
       updateUiSchema(filteredPresets[selectedPreset], schema)
       return
     }
@@ -113,7 +111,7 @@ const EnhancedFormSection = () => {
       uiSchema={uiSchema}
       formData={formData}
       onFormDataChange={onFormDataChange}
-      submitForm={submitForm}
+      onSubmit={submitForm}
       // Options menu stuff
       selectedPreset={selectedPreset}
       isExpandedView={isExpandedView}

@@ -22,7 +22,7 @@ const ConfigPanel = ({
   uiSchema,
   formData = {},
   onFormDataChange,
-  submitForm,
+  onSubmit,
   // Options menu stuff
   selectedPreset,
   isExpandedView,
@@ -71,7 +71,7 @@ const ConfigPanel = ({
           formData={formData}
           formContext={formContext}
           onChange={onFormDataChange}
-          onSubmit={submitForm}
+          onSubmit={onSubmit}
           uiSchema={uiSchema}
         >
           {children}
@@ -85,7 +85,7 @@ ConfigPanel.propTypes = {
   schema: PropTypes.object,
   uiSchema: PropTypes.object,
   formData: PropTypes.object,
-  submitForm: PropTypes.func,
+  onSubmit: PropTypes.func,
   selectedPreset: PropTypes.number,
   onPresetChange: PropTypes.func,
   presetsMenuData: PropTypes.array,

@@ -27,7 +27,7 @@ const FormSection = ({
   uiSchema,
   formData = {},
   onFormDataChange,
-  submitForm,
+  onSubmit,
   // Options menu stuff
   selectedPreset,
   isExpandedView,
@@ -65,7 +65,7 @@ const FormSection = ({
                 uiSchema={uiSchema}
                 formData={formData}
                 onFormDataChange={onFormDataChange}
-                submitForm={submitForm}
+                onSubmit={onSubmit}
                 // Options menu stuff
                 selectedPreset={selectedPreset}
                 isExpandedView={isExpandedView}
@@ -76,6 +76,7 @@ const FormSection = ({
               >
                 <Button
                   type="submit"
+                  variant="outlined"
                 >
                   Validate
                 </Button>

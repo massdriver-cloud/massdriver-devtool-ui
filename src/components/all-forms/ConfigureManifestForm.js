@@ -40,16 +40,6 @@ ConfigureManifestForm.propTypes = {
 export default ConfigureManifestForm
 
 const StyledForm = stylin(Form)({
-  button: {
-    border: '1px solid darkgray',
-    margin: 0,
-    marginRight: '1rem',
-    backgroundColor: 'white',
-    ':hover': {
-      color: '#3c3c3c !important'
-    }
-  },
-
   '.MuiCheckbox-colorSecondary.Mui-checked': {
     color: '#3c3c3c'
   },

@@ -158,7 +158,7 @@ const EnhancedConfigPanel = ({ packageId }) => {
       uiSchema={uiSchema}
       formData={formData}
       onFormDataChange={onFormDataChange}
-      submitForm={submitForm}
+      onSubmit={submitForm}
       hasDefaultTargetCredential={hasDefaultTargetCredential}
       isSaveLoading={isSaveLoading}
       isDeployLoading={isDeployLoading}
