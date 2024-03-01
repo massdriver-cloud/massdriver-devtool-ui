@@ -12,7 +12,7 @@ const SECTION_DESCRIPTION = "Information regarding the bundles' produced artifac
 const ArtifactsSection = ({
   loading,
   error,
-  artifacts
+  artifacts = []
 }) => (
   <Section
     title={SECTION_TITLE}
@@ -25,7 +25,7 @@ const ArtifactsSection = ({
         ) : error ? (
           <EmptyMessage>Error: There was an issue parsing your artifacts data.</EmptyMessage>
         ) :
-          artifacts ?
+          artifacts.length > 0 ?
             artifacts.map(({ id, type, name }) => (
               <LineItem
                 key={id}

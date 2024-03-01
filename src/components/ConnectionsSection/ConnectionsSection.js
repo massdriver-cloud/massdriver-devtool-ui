@@ -18,8 +18,8 @@ const CONNECTIONS_DESCRIPTION = "These are the bundles' normal dependent connect
 const ConnectionsSection = ({
   loading,
   error,
-  credentialConnections,
-  normalConnections,
+  credentialConnections = [],
+  normalConnections = [],
 }) => (
   <Section
     title={SECTION_TITLE}
@@ -37,7 +37,7 @@ const ConnectionsSection = ({
               <Title>{CREDENTIALS_TITLE}</Title>
               <Description>{CREDENTIALS_DESCRIPTION}</Description>
             </Header>
-            {credentialConnections ?
+            {credentialConnections.length > 0 ?
               credentialConnections.map(({ id, type, name, cloud }) => (
                 <LineItem
                   key={id}
@@ -54,7 +54,7 @@ const ConnectionsSection = ({
               <Title>{CONNECTIONS_TITLE}</Title>
               <Description>{CONNECTIONS_DESCRIPTION}</Description>
             </Header>
-            {normalConnections ?
+            {normalConnections.length > 0 ?
               normalConnections.map(({ id, type, name }) => (
                 <LineItem
                   key={id}

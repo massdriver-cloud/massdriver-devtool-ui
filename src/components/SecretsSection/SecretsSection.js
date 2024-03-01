@@ -11,7 +11,7 @@ const SECTION_TITLE = "Bundle secrets"
 const SecretsSection = ({
   loading,
   error,
-  secrets
+  secrets = []
 }) => (
   <Section
     title={SECTION_TITLE}
@@ -24,7 +24,7 @@ const SecretsSection = ({
         ) : error ? (
           <EmptyMessage>Error: There was an issue parsing your secrets data.</EmptyMessage>
         ) :
-          secrets ?
+          secrets.length > 0 ?
             secrets.map(({ id, name, title, description, json, required }) => (
               <LineItem
                 key={id}
