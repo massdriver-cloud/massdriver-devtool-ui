@@ -14,6 +14,8 @@ const ConfigPanel = ({
   loading,
   error,
   children,
+  sx,
+  className,
   // Form stuff
   formContext = {},
   schema,
@@ -29,7 +31,7 @@ const ConfigPanel = ({
   shouldShowPresets = true,
   hasStaleParams
 }) => (
-  <Box>
+  <Box sx={sx} className={className}>
     {loading ? (
       <LoadingSpinner />
     ) : error ? (
