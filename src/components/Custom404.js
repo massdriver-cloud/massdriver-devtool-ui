@@ -1,5 +1,4 @@
 import Stack from '@mui/material/Stack'
-import logo from '../../public/assets/logo-black.svg'
 
 const Custom404 = ({ small, children, sx, ...props }) => (
   <Stack
@@ -16,7 +15,7 @@ const Custom404 = ({ small, children, sx, ...props }) => (
     {...props}
   >
     <img
-      src={logo}
+      src='assets/logo-black.svg'
       alt='space-man'
       width='67px'
       height='74px'

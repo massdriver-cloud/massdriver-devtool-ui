@@ -25,8 +25,8 @@ const ROUTE_MAPS = {
 const RouteController = () => {
   const currentRoute = window?.location?.pathname
 
-  const Page = ROUTE_MAPS[currentRoute].page
-  const Layout = ROUTE_MAPS[currentRoute].layout
+  const Page = ROUTE_MAPS[currentRoute]?.page
+  const Layout = ROUTE_MAPS[currentRoute]?.layout
 
   return Page ? (
     <PageContainer>

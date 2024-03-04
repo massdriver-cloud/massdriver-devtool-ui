@@ -51,7 +51,8 @@ export default {
         { find: 'helpers', replacement: __dirname + '/src/helpers' },
         { find: 'hooks', replacement: __dirname + '/src/hooks' },
         { find: 'constants', replacement: __dirname + '/src/constants' },
-        { find: 'contexts', replacement: __dirname + '/src/contexts' }
+        { find: 'contexts', replacement: __dirname + '/src/contexts' },
+        { find: 'assets', replacement: __dirname + '/public/assets' }
       ]
     }),
     nodeResolve({
