@@ -4,10 +4,8 @@ import LinearHeaderLogo from 'components/LinearHeaderLogo'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-const Header = () => (
+const Header = ({ children }) => (
   <StyledAppBar
     elevation={0}
     position='static'
@@ -18,13 +16,7 @@ const Header = () => (
       </LeftBar>
       <CenterBar />
       <RightBar>
-        <DeployButton
-          variant="outlined"
-          endIcon={<ArrowRightIcon sx={{ width: '25px', height: '25px' }} />}
-          href='/deploy'
-        >
-          Provision Bundle
-        </DeployButton>
+        {children}
       </RightBar>
     </Toolbar>
   </StyledAppBar>
@@ -58,9 +50,4 @@ const RightBar = stylin(Box)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'
-})
-
-const DeployButton = stylin(Button)({
-  borderRadius: '4px',
-  color: 'white'
 })
