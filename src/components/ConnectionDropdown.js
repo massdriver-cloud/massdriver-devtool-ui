@@ -87,6 +87,7 @@ const ConnectionDropdown = ({ id, type, value, onChange, isSet, ...props }) => {
       label={`${id} (${type})`}
       name={id}
       SelectProps={{ renderValue: value => customRenderValue(value, formattedArtifacts) }}
+      sx={{ '.MuiInputBase-root': { borderRadius: '4px' } }}
       {...props}
     >
       <Tooltip

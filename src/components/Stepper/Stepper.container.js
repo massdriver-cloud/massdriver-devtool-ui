@@ -51,8 +51,6 @@ const EnhancedStepper = ({
     }))
   }
 
-  console.log({ data })
-
   return (
     <Stepper
       steps={steps}

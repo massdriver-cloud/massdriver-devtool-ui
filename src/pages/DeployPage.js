@@ -2,6 +2,7 @@
 import Stepper from 'components/Stepper/Stepper.container'
 
 import ConnectionsStep from 'components/deploy-page/ConnectionsStep.container'
+import SecretsStep from 'components/deploy-page/SecretsStep.container'
 
 const STEPS = [
   {
@@ -12,7 +13,9 @@ const STEPS = [
   },
   {
     id: 2,
-    label: 'Set secrets'
+    label: 'Set secrets',
+    component: SecretsStep,
+    actions: { next: { initialState: { disabled: true } } }
   },
   {
     id: 3,

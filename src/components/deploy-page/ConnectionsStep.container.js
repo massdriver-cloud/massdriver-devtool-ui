@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { parseJson } from 'utils/data'
 
 import { useAuth } from 'contexts/authContext'
@@ -87,13 +87,17 @@ const EnhancedConnectionsStep = ({
   const { data, loading, error } = useGetPossibleConnections()
   const { possibleConnections, currentConnections } = data || {}
 
+  // Check if next button is disabled
+  const isNextDisabled = useMemo(() => possibleConnections ? [...possibleConnections.credentials || [], ...possibleConnections.normal || []].some(connection => connection.required && (formData[connection.id] === '' || formData[connection.id] === undefined)) : true, [possibleConnections, formData])
+
   // update formdata with previously set connections
-  useEffect(() => setFormData(stepData ? stepData : getInitialFormData(possibleConnections)), [possibleConnections])
+  useEffect(() => {
+    setFormData(stepData ? stepData : getInitialFormData(possibleConnections))
+    !isNextDisabled && updateActionStates(states => ({ ...states, next: { ...states.next, disabled: false } }))
+  }, [possibleConnections])
 
-  // update formdata once required connections are set
-  const isNextDisabled = possibleConnections ? [...possibleConnections.credentials || [], ...possibleConnections.normal || []].some(connection => connection.required && formData[connection.id] === '') : true
-
-  useEffect(() => !isNextDisabled && updateActionStates(states => ({ ...states, next: { ...states.next, disabled: false } })), [formData])
+  // update next button on form change if necessary
+  useEffect(() => updateActionStates(states => ({ ...states, next: { ...states.next, disabled: isNextDisabled } })), [formData])
 
   const onChange = event => setFormData(formData => ({ ...formData, [event.target.name]: event.target.value }))
 

@@ -33,7 +33,7 @@ const ConnectionsStep = ({
               </Description>
             </Header>
             <Column gap='16px'>
-              {connections.credentials?.map(({ id, type, required, isSet }) => (
+              {connections.credentials?.length > 0 ? connections.credentials?.map(({ id, type, required, isSet }) => (
                 <ConnectionDropdown
                   key={id}
                   id={id}
@@ -43,7 +43,9 @@ const ConnectionsStep = ({
                   value={formData[id] || ''}
                   isSet={isSet}
                 />
-              ))}
+              )) : (
+                <EmptyMessage>This bundle does not require credential connections...</EmptyMessage>
+              )}
             </Column>
           </Column>
           <Column>
@@ -54,7 +56,7 @@ const ConnectionsStep = ({
               </Description>
             </Header>
             <Column gap='16px'>
-              {connections.normal?.map(({ id, type, required, isSet }) => (
+              {connections.normal.length > 0 ? connections.normal?.map(({ id, type, required, isSet }) => (
                 <ConnectionDropdown
                   key={id}
                   id={id}
@@ -64,7 +66,9 @@ const ConnectionsStep = ({
                   value={formData[id] || ''}
                   isSet={isSet}
                 />
-              ))}
+              )) : (
+                <EmptyMessage>This bundle does not require normal connections...</EmptyMessage>
+              )}
             </Column>
           </Column>
           {children({ next })}
