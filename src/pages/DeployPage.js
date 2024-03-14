@@ -1,10 +1,14 @@
 // import DeployWizard from '../components/DeployWizard/DeployWizard'
 import Stepper from 'components/Stepper/Stepper.container'
 
+import ConnectionsStep from 'components/deploy-page/ConnectionsStep.container'
+
 const STEPS = [
   {
     id: 1,
-    label: 'Set connections'
+    label: 'Set connections',
+    component: ConnectionsStep,
+    actions: { next: { initialState: { disabled: true } } }
   },
   {
     id: 2,

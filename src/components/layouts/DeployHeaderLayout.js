@@ -24,7 +24,7 @@ const DeployHeaderLayout = ({ children }) => (
         <DeployButton
           variant="outlined"
           startIcon={<ArrowLeftIcon sx={{ width: '25px', height: '25px' }} />}
-          href='/deploy'
+          href='/'
         >
           Back to app
         </DeployButton>

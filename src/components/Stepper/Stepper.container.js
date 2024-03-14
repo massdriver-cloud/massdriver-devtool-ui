@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 
 import Stepper from 'components/Stepper/Stepper'
-import { equal, getNextStepId, getPreviousStepId, getStepActionStates } from 'components/Stepper/helpers'
+import { getNextStepId, getPreviousStepId, getStepActionStates } from 'components/Stepper/helpers'
 
 const EnhancedStepper = ({
   steps = [],
@@ -13,38 +13,45 @@ const EnhancedStepper = ({
   const [actionStates, setActionStates] = useState(initialActionStates)
   const [data, setData] = useState({})
 
-  const generateBack = backSubmit => () => {
+  const generateBack = backSubmit => async () => {
     setActionStates(actionStates => ({
       ...actionStates,
       back: { ...actionStates.back, loading: true }
     }))
-    const data = backSubmit ? backSubmit() : true
-    if (data) {
-      typeof data !== 'boolean' && setData(prevData => ({ ...prevData, [activeStep]: data }))
+    const response = backSubmit ? await backSubmit() : { successful: true }
+    if (response?.successful) {
+      response?.data && setData(prevData => ({ ...prevData, [activeStep]: response?.data }))
       const prevStepId = getPreviousStepId(steps, activeStep)
       setActiveStep(prevStepId)
       setActionStates(getStepActionStates(steps, prevStepId))
       return
     }
-    setActionStates(initialActionStates)
+    setActionStates(actionStates => ({
+      ...actionStates,
+      back: { ...actionStates.back, loading: false }
+    }))
   }
 
-  const generateNext = nextSubmit => () => {
+  const generateNext = nextSubmit => async () => {
     setActionStates(actionStates => ({
       ...actionStates,
       next: { ...actionStates.next, loading: true }
     }))
-    const data = nextSubmit ? nextSubmit() : true
-    if (data) {
-      typeof data !== 'boolean' && setData(prevData => ({ ...prevData, [activeStep]: data }))
+    const response = nextSubmit ? await nextSubmit() : { successful: true }
+    if (response?.successful) {
+      response?.data && setData(prevData => ({ ...prevData, [activeStep]: response?.data }))
       const nextStepId = getNextStepId(steps, activeStep)
       setActiveStep(nextStepId)
       setActionStates(getStepActionStates(steps, nextStepId))
       return
     }
-
-    setActionStates(initialActionStates)
+    setActionStates(actionStates => ({
+      ...actionStates,
+      next: { ...actionStates.next, loading: false }
+    }))
   }
+
+  console.log({ data })
 
   return (
     <Stepper

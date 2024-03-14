@@ -24,7 +24,7 @@ const Stepper = ({
   data
 }) => {
 
-  const StepComponent = steps.find(step => equal(step.id, activeStep))?.StepComponent || FallbackStep
+  const StepComponent = steps.find(step => equal(step.id, activeStep))?.component || FallbackStep
   const actions = steps.find(step => equal(step.id, activeStep))?.actions
 
   return (
@@ -44,8 +44,10 @@ const Stepper = ({
       <StepContainer>
         <StepComponent
           updateActionStates={updateActionStates}
+          generateNext={generateNext}
+          generateBack={generateBack}
           data={data}
-          setpData={data[activeStep]}
+          stepData={data[activeStep]}
         >
           {({ next, back } = {}) => {
             const _next = generateNext(next)

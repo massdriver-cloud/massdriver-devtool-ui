@@ -23,7 +23,36 @@ const GET_ARTIFACTS = `
     }
   `
 
-const ConnectionDropdown = ({ type, value, onChange, hasConnectionSet, ...props }) => {
+const IS_SET = 'isSet'
+const MANUAL = 'manual'
+
+const customRenderValue = (value, artifacts) => value === IS_SET
+  ? (
+    <Tooltip
+      title={(
+        <Typography>
+          This connection has already been set in the <strong>_connections.auto.tfvars.json</strong>. Feel free to update if desired.
+        </Typography>
+      )}
+      placement="top-start"
+    >
+      <Typography>Saved Connection</Typography>
+    </Tooltip>
+  ) : value === MANUAL ? (
+    <Tooltip
+      title={(
+        <Typography>
+          This connection must be manually set in the <strong>_connections.auto.tfvars.json</strong>.
+        </Typography>
+      )}
+      placement="top-start"
+    >
+      <Typography>Manually set connection</Typography>
+    </Tooltip>
+  )
+    : artifacts?.find(art => art.id === value)?.name
+
+const ConnectionDropdown = ({ id, type, value, onChange, isSet, ...props }) => {
   const { organizationId, serviceAccountId } = useAuth()
 
   const { data, loading, error: loadingError } = useFetch(GQL_API_ENDPOINT, {
@@ -55,59 +84,63 @@ const ConnectionDropdown = ({ type, value, onChange, hasConnectionSet, ...props 
       fullWidth
       value={value}
       onChange={onChange}
-      label={type}
-      name={type}
-      SelectProps={{
-        renderValue: value =>
-          value === 'currentlySet'
-            ? (
-              <Tooltip
-                title='This connection has already been set. Feel free to update if desired.'
-                placement="top-start"
-              >
-                <Typography>Currently Set Connection</Typography>
-              </Tooltip>
-            )
-            : formattedArtifacts?.find(art => art.id === value)?.name
-      }}
+      label={`${id} (${type})`}
+      name={id}
+      SelectProps={{ renderValue: value => customRenderValue(value, formattedArtifacts) }}
       {...props}
     >
       <Tooltip
-        title='The value that is currently set for this connection.'
-        key="prev"
-        value="currentlySet"
+        title={(
+          <Typography>
+            The value that is currently set for this connection in the <strong>_connections.auto.tfvars.json</strong>.
+          </Typography>
+        )}
+        key="isSet"
         placement="top-start"
+        componentsProps={{ tooltip: { sx: { maxWidth: '400px' } } }}
+        value="isSet"
       >
-        <MenuItem
-          key="prev"
-          value="currentlySet"
-          sx={{
-            ...(loading || loadingError || formattedArtifacts?.length < 1 || !hasConnectionSet ? { display: 'none !important' } : {})
-          }}
-        >
-          Currently Set Connection
+        <MenuItem value="isSet" sx={{ ...(loading || !isSet ? { display: 'none !important' } : {}) }}>
+          Saved connection
         </MenuItem>
       </Tooltip>
-      {loading ? (
-        <LoadingContainer>
-          <CircularProgress size={20} />
-        </LoadingContainer>
-      ) : loadingError ? (
-        <Typography variant='h6'>
-          There was an issue fetching your artifacts.
-        </Typography>
-      ) : formattedArtifacts?.length > 0 ? (
-        formattedArtifacts.map(artifact => (
-          <MenuItem key={artifact?.id} value={artifact?.id}>
-            {artifact?.name}
-          </MenuItem>
-        ))
-      ) : (
-        <Typography variant='h6'>
-          Your organization does not have any artifacts of type '{type}'.
-        </Typography>
-      )}
-    </TextField>
+      <Tooltip
+        title={(
+          <Typography>
+            Manually fulfill the connection by editing the <strong>_connections.auto.tfvars.json</strong>.
+          </Typography>
+        )}
+        key="manual"
+        value="manual"
+        placement="top-start"
+        componentsProps={{ tooltip: { sx: { maxWidth: '400px' } } }}
+      >
+        <MenuItem value="manual">
+          Manually set connection
+        </MenuItem>
+      </Tooltip>
+      {
+        loading ? (
+          <LoadingContainer>
+            <CircularProgress size={20} />
+          </LoadingContainer>
+        ) : loadingError ? (
+          <Typography variant='h6'>
+            There was an issue fetching your artifacts.
+          </Typography>
+        ) : formattedArtifacts?.length > 0 ? (
+          formattedArtifacts.map(artifact => (
+            <MenuItem key={artifact?.id} value={artifact?.id}>
+              {artifact?.name}
+            </MenuItem>
+          ))
+        ) : (
+          <Typography variant='h6'>
+            Your organization does not have any artifacts of type '{type}'.
+          </Typography>
+        )
+      }
+    </TextField >
   )
 }
 
