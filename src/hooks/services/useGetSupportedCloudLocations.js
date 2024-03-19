@@ -1,7 +1,7 @@
-import { useAuth } from '../../contexts/authContext'
-import useFetch from '../useFetch'
-import { GQL_API_ENDPOINT } from '../../constants/api'
-import { formatErrors } from './helpers'
+import { useAuth } from 'contexts/authContext'
+import useFetch from 'hooks/useFetch'
+import { GQL_API_ENDPOINT } from 'constants/api'
+import { formatErrors } from 'hooks/services/helpers'
 
 const GET_SUPPORTED_CLOUD_LOCATIONS = `
   query getSupportedLocations($organizationId: ID!, $cloudService: String!) {
