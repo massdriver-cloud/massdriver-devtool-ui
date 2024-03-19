@@ -4,6 +4,7 @@ import { INITIALIZED, PENDING, RUNNING, COMPLETED, FAILED } from 'constants/prog
 
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const getText = (isCancelled, status, countdown, containerName) =>
   status === INITIALIZED ?
@@ -44,28 +45,46 @@ const AutoDecommissionBar = ({
     <StyledAlert
       variant="filled"
       severity={(status === INITIALIZED && isCancelled) ? 'warning' : SEVERITY_MAP[status]}
-      action={
-        ([INITIALIZED, COMPLETED, FAILED].includes(status)) && (
-          <StyledButton
-            variant="outlined"
-            onClick={
-              status === INITIALIZED ?
-                isCancelled ?
-                  onDecommissionClick :
-                  onCancelClick :
-                onBackClick
-            }
-          >
-            {
-              status === INITIALIZED ?
-                isCancelled ?
-                  'Decommission' :
-                  'Cancel' :
-                'Back to App'
-            }
-          </StyledButton>
+      {...([PENDING, RUNNING].includes(status) ? {
+        icon: (
+          <StyledCircularProgress
+            thickness={5}
+            size="34px"
+          />
         )
-      }
+      } : {})}
+      action={(
+        <>
+          {status === FAILED && (
+            <StyledButton
+              variant="outlined"
+              onClick={onDecommissionClick}
+            >
+              Try again
+            </StyledButton>
+          )}
+          {[INITIALIZED, COMPLETED, FAILED].includes(status) && (
+            <StyledButton
+              variant="outlined"
+              onClick={
+                status === INITIALIZED ?
+                  isCancelled ?
+                    onDecommissionClick :
+                    onCancelClick :
+                  onBackClick
+              }
+            >
+              {
+                status === INITIALIZED ?
+                  isCancelled ?
+                    'Decommission' :
+                    'Cancel' :
+                  'Back to app'
+              }
+            </StyledButton>
+          )}
+        </>
+      )}
     >
       {text}
     </StyledAlert>
@@ -75,11 +94,15 @@ const AutoDecommissionBar = ({
 export default AutoDecommissionBar
 
 const StyledAlert = stylin(Alert)({
+  minHeight: '66px',
   borderRadius: '0px',
   color: '#fff',
-  'svg': {
+  '.MuiSvgIcon-root': {
     height: '34px',
     width: '34px',
+  },
+  '.MuiAlert-icon': {
+    py: '8px'
   },
   '.MuiAlert-message': {
     display: 'flex',
@@ -88,7 +111,8 @@ const StyledAlert = stylin(Alert)({
   },
   '.MuiAlert-action': {
     p: 0,
-    alignItems: 'center'
+    py: '8px',
+    alignItems: 'flex-start'
   }
 })
 
@@ -98,4 +122,9 @@ const StyledButton = stylin(Button)({
   color: '#fff',
   borderColor: '#fff',
   mr: '10px',
+  whiteSpace: 'nowrap'
+})
+
+const StyledCircularProgress = stylin(CircularProgress)({
+  color: '#fff'
 })

@@ -1,6 +1,7 @@
 import stylin from 'utils/stylin'
 
 import AutoDecommissionBar from 'components/deploy-page/AutoDecommissionBar.container'
+import CopyButton from 'components/CopyButton'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -27,11 +28,17 @@ const SuccessInfo = ({
         <Column>
           <InfoCard>
             <Label>Container Name</Label>
-            <Value>{containerName}</Value>
+            <ValueRow>
+              <Value title={containerName}>{containerName}</Value>
+              <StyledCopyButton itemToCopy={containerName} />
+            </ValueRow>
           </InfoCard>
           <InfoCard>
             <Label>Container ID</Label>
-            <Value>{containerId}</Value>
+            <ValueRow>
+              <Value title={containerId}>{containerId}</Value>
+              <StyledCopyButton itemToCopy={containerId} />
+            </ValueRow>
           </InfoCard>
         </Column>
       </Container>
@@ -90,6 +97,23 @@ const Label = stylin(Typography)({
 
 const Value = stylin(Typography)(({ theme }) => ({
   fontSize: '12px',
-  pl: '10px',
-  color: theme.palette.grey['A700']
+  color: theme.palette.grey['A700'],
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
 }))
+
+const ValueRow = stylin(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '10px',
+  pl: '10px',
+})
+
+const StyledCopyButton = stylin(CopyButton)({
+  'svg': {
+    width: '15px',
+    height: '15px'
+  }
+})

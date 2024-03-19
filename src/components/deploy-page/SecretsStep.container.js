@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { isValidJsonObject } from 'utils/data'
 
-import useNotice from 'hooks/useNotice'
 import useGetSecrets from 'hooks/queries/useGetSecrets'
 import SecretsStep from 'components/deploy-page/SecretsStep'
 

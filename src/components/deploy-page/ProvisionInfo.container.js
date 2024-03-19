@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 
 import ProvisionInfo from 'components/deploy-page/ProvisionInfo'
 
@@ -7,6 +8,12 @@ const EnhancedProvisionInfo = ({
   updateProvisioningStatus,
   containerId,
 }) => {
+
+  // Adds confirmation modal on page leave
+  useEffect(() => {
+    window.onbeforeunload = () => 'Leaving this page will orphan deployed resources. You will have to manually destroy them in the cloud console.'
+    return () => window.onbeforeunload = undefined
+  }, [])
 
   return (
     <ProvisionInfo

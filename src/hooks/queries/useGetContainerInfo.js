@@ -9,7 +9,7 @@ const useGetSchemaConnections = ({ containerId }) => {
   return {
     data: container ? {
       id: container?.Id,
-      name: container?.Names?.[0]
+      name: container?.Names?.[0]?.split('/')?.[1]
     } : {},
     loading,
     error

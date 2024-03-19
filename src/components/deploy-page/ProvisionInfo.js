@@ -18,7 +18,7 @@ const ProvisionInfo = ({
       status === COMPLETED ? (
         <SuccessInfo containerId={containerId} />
       ) : status === FAILED ? (
-        <FailInfo />
+        <FailInfo containerId={containerId} />
       ) : (
         <ResourceProgressView
           action={action}

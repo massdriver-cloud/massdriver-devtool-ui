@@ -83,6 +83,13 @@ const EnhancedAutoDecommissionBar = () => {
 
   const onBackClick = () => window.location.pathname = '/'
 
+  // Remove page-leave event if decommissioned
+  useEffect(() => {
+    if ([COMPLETED, FAILED].includes(status)) {
+      window.onbeforeunload = undefined
+    }
+  }, [status])
+
   return (
     <AutoDecommissionBar
       containerName={containerName}
