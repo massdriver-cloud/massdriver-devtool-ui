@@ -32,11 +32,10 @@ const SecretsStep = ({
           </Header>
           <Column gap='18px'>
             {requiredSecrets.map(({ id, name, title, description, required, json, }) => (
-              <FieldContainer>
+              <FieldContainer key={id}>
                 <SecretField
-                  key={id}
                   name={name}
-                  value={formData[id]}
+                  value={formData[id] || ''}
                   label={title || name}
                   helperText={formErrors[id] || ""}
                   error={formErrors[id]}
@@ -62,11 +61,10 @@ const SecretsStep = ({
           </Header>
           <Column gap='18px'>
             {optionalSecrets.map(({ id, name, title, description, required, json, }) => (
-              <FieldContainer>
+              <FieldContainer key={id}>
                 <SecretField
-                  key={id}
                   name={name}
-                  value={formData[id]}
+                  value={formData[id] || ''}
                   label={title || name}
                   helperText={formErrors[id] || ""}
                   error={formErrors[id]}

@@ -6,6 +6,7 @@ import { Stepper as _Stepper } from '@mui/material'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
 
 const FallbackStep = ({ children }) => (
   <>
@@ -21,7 +22,8 @@ const Stepper = ({
   updateActionStates,
   generateNext,
   generateBack,
-  data
+  data,
+  childProps,
 }) => {
 
   const StepComponent = steps.find(step => equal(step.id, activeStep))?.component || FallbackStep
@@ -29,7 +31,10 @@ const Stepper = ({
 
   return (
     <Container>
-      <StyledStepper activeStep={getStepIndex(steps, activeStep)}>
+      <StyledStepper
+        activeStep={getStepIndex(steps, activeStep)}
+        numberOfSteps={steps.length}
+      >
         {
           steps.map(({ id, label }) => (
             <Step
@@ -41,6 +46,7 @@ const Stepper = ({
           ))
         }
       </StyledStepper>
+      <StyledDivider />
       <StepContainer>
         <StepComponent
           updateActionStates={updateActionStates}
@@ -48,6 +54,7 @@ const Stepper = ({
           generateBack={generateBack}
           data={data}
           stepData={data[activeStep]}
+          {...childProps}
         >
           {({ next, back } = {}) => {
             const _next = generateNext(next)
@@ -79,6 +86,12 @@ const StepContainer = stylin(Box)({
   pt: '10px'
 })
 
-const StyledStepper = stylin(_Stepper)({
+const StyledStepper = stylin(_Stepper, ['numberOfSteps'])(({ theme, numberOfSteps }) => ({
   px: '12px',
-})
+  backgroundColor: theme.palette.grey[200],
+  justifyContent: numberOfSteps ? 'center' : 'start'
+}))
+
+const StyledDivider = stylin(Divider)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[400]
+}))

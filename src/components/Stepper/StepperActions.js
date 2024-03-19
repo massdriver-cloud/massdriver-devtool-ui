@@ -21,9 +21,10 @@ const StepperActions = ({
         <ActionButton
           variant='outlined'
           sx={back?.sx}
+          type={back?.type || 'button'}
           {...backStates}
           disabled={backStates.disabled || activeStepIndex === 0}
-          onClick={onBack}
+          onClick={back?.type === 'submit' ? () => { } : onBack}
         >
           {back?.label || 'Back'}
         </ActionButton>
@@ -35,6 +36,7 @@ const StepperActions = ({
           <ActionButton
             variant='outlined'
             sx={skip?.sx}
+            type={skip?.type || 'button'}
             {...skipStates}
           >
             {skip?.label || 'Skip'}
@@ -44,8 +46,9 @@ const StepperActions = ({
           <ActionButton
             variant='outlined'
             sx={next?.sx}
+            type={next?.type || 'button'}
             {...nextStates}
-            onClick={onNext}
+            onClick={next?.type === 'submit' ? () => { } : onNext}
           >
             {next?.label || 'Next'}
           </ActionButton>

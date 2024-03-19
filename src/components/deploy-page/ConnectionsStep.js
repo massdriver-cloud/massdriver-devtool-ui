@@ -56,7 +56,7 @@ const ConnectionsStep = ({
               </Description>
             </Header>
             <Column gap='16px'>
-              {connections.normal.length > 0 ? connections.normal?.map(({ id, type, required, isSet }) => (
+              {connections.normal?.length > 0 ? connections.normal?.map(({ id, type, required, isSet }) => (
                 <ConnectionDropdown
                   key={id}
                   id={id}

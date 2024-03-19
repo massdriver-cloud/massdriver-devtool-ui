@@ -5,6 +5,7 @@ import { getNextStepId, getPreviousStepId, getStepActionStates } from 'component
 
 const EnhancedStepper = ({
   steps = [],
+  childProps = {},
 }) => {
   const [activeStep, setActiveStep] = useState(steps[0].id)
 
@@ -60,6 +61,7 @@ const EnhancedStepper = ({
       generateNext={generateNext}
       generateBack={generateBack}
       data={data}
+      childProps={childProps}
     />
   )
 }
