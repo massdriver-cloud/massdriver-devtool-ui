@@ -7,6 +7,7 @@ import ViewPage from 'pages/ViewPage'
 import DeployPage from 'pages/DeployPage'
 // Layouts
 import JustHeaderLayout from 'components/layouts/JustHeaderLayout'
+import DeployHeaderLayout from 'components/layouts/DeployHeaderLayout'
 
 
 import Box from '@mui/material/Box'
@@ -19,6 +20,7 @@ const ROUTE_MAPS = {
   },
   '/deploy': {
     page: DeployPage,
+    layout: DeployHeaderLayout,
   }
 }
 

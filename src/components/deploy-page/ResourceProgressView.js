@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import ResourceProgressViewer from '../ResourceProgressViewer/ResourceProgressViewer'
-import { formatResources } from '../ResourceProgressViewer/helpers'
+import ResourceProgressViewer from 'components/ResourceProgressViewer/ResourceProgressViewer'
+import { formatResources } from 'components/ResourceProgressViewer/helpers'
+
+import { COMPLETED, FAILED, RUNNING } from 'constants/progress-statuses'
 
 const EVENT_STATUS_MAP = {
   start: 'pending',
@@ -9,14 +11,13 @@ const EVENT_STATUS_MAP = {
   errored: 'failed'
 }
 
-const EnhancedResourceProgressStep = ({
-  next,
-  data
+const ResourceProgressView = ({
+  updateProvisioningStatus,
+  status,
+  action,
+  containerId
 }) => {
-  const [status, setStatus] = useState('PENDING')
   const [events, setEvents] = useState([])
-
-  const { action, containerId } = data
 
   useEffect(() => {
     const containerLogsSocket = new WebSocket(`ws://127.0.0.1:8080/containers/logs?id=${containerId}`)
@@ -43,17 +44,15 @@ const EnhancedResourceProgressStep = ({
 
           return alreadyExists ? events.map(event => (`${event.type}-${event.name}` === `${newResource.type}-${newResource.name}` && event?.key === newResource?.key) ? newResource : event) : [...events, newResource]
         })
-        setStatus('RUNNING')
+        updateProvisioningStatus(RUNNING)
       }
 
       if (parsedEvent['@message']?.includes('Apply complete!')) {
-        setStatus('COMPLETED')
-        setTimeout(() => next({ action, status: 'COMPLETED' }), 1000)
+        updateProvisioningStatus(COMPLETED)
         return
       }
       if (parsedEvent['@level'] === 'error') {
-        setStatus('FAILED')
-        setTimeout(() => next({ action, status: 'FAILED' }), 1000)
+        updateProvisioningStatus(FAILED)
         return
       }
     }
@@ -61,12 +60,12 @@ const EnhancedResourceProgressStep = ({
 
   return (
     <ResourceProgressViewer
-      formattedAction={`${data?.action}ing`}
-      action={data?.action || ''}
+      formattedAction={`${action}ing`}
+      action={action || ''}
       resources={formatResources(events)}
       deploymentStatus={status}
     />
   )
 }
 
-export default EnhancedResourceProgressStep
+export default ResourceProgressView

@@ -7,9 +7,9 @@ import Header from 'components/Header'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 
-const JustHeaderLayout = ({ children }) => (
+const DeployHeaderLayout = ({ children }) => (
   <>
     <Box
       width='100%'
@@ -23,10 +23,10 @@ const JustHeaderLayout = ({ children }) => (
       <Header>
         <DeployButton
           variant="outlined"
-          endIcon={<ArrowRightIcon sx={{ width: '25px', height: '25px' }} />}
-          href='/deploy'
+          startIcon={<ArrowLeftIcon sx={{ width: '25px', height: '25px' }} />}
+          href='/'
         >
-          Provision Bundle
+          Back to app
         </DeployButton>
       </Header>
       <Box
@@ -43,7 +43,7 @@ const JustHeaderLayout = ({ children }) => (
   </>
 )
 
-export default JustHeaderLayout
+export default DeployHeaderLayout
 
 const DeployButton = stylin(Button)({
   borderRadius: '4px',
