@@ -39,6 +39,7 @@ const ConfigureStep = ({
             </Description>
           </Header>
           <ConfigPanel
+            alwaysShowMenu
             // Form stuff
             formContext={formContext}
             schema={schema}
