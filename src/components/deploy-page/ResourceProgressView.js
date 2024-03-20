@@ -44,15 +44,21 @@ const ResourceProgressView = ({
 
           return alreadyExists ? events.map(event => (`${event.type}-${event.name}` === `${newResource.type}-${newResource.name}` && event?.key === newResource?.key) ? newResource : event) : [...events, newResource]
         })
-        updateProvisioningStatus(RUNNING)
+        updateProvisioningStatus({ status: RUNNING })
+      }
+
+      if (parsedEvent?.payload?.error_details?.match('artifact_created')) {
+        const artifact = JSON.parse(JSON.parse(JSON.parse(parsedEvent.payload.error_details)?.detail)?.Message)?.payload?.artifact
+
+        artifact && updateProvisioningStatus({ artifact })
       }
 
       if (parsedEvent['@message']?.includes('Apply complete!')) {
-        updateProvisioningStatus(COMPLETED)
+        updateProvisioningStatus({ status: COMPLETED })
         return
       }
       if (parsedEvent['@level'] === 'error') {
-        updateProvisioningStatus(FAILED)
+        updateProvisioningStatus({ status: FAILED })
         return
       }
     }

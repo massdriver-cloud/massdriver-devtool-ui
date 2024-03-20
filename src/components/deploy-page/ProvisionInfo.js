@@ -11,12 +11,13 @@ const ProvisionInfo = ({
   action,
   status,
   updateProvisioningStatus,
-  containerId
+  containerId,
+  artifacts
 }) => (
   <Container>
     {
       status === COMPLETED ? (
-        <SuccessInfo containerId={containerId} />
+        <SuccessInfo containerId={containerId} artifacts={artifacts} />
       ) : status === FAILED ? (
         <FailInfo containerId={containerId} />
       ) : (
