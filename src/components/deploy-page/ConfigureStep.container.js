@@ -121,7 +121,7 @@ const EnhancedConfigureStep = ({
           autoHideDuration: 5000,
           disableWindowBlurListener: true
         })
-        updateProvisioningStatus(PENDING, 'provision', data?.containerID)
+        updateProvisioningStatus({ status: PENDING, action: 'provision', containerId: data?.containerID })
       })
       .catch(err => {
         errorNotice("There was an issue starting the deployment.", {

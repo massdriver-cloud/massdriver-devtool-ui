@@ -9,17 +9,21 @@ import { INITIALIZED } from 'constants/progress-statuses'
 
 import Typography from '@mui/material/Typography'
 
+import SuccessInfo from 'components/deploy-page/SuccessInfo.container'
+
 const DeployPage = () => {
   const { data, loading, error } = useGetDeploySteps()
 
   const [provisioningStatus, setProvisioningStatus] = useState(INITIALIZED)
   const [provisioningAction, setProvisioningAction] = useState('')
   const [containerId, setContainerId] = useState('')
+  const [artifacts, setArtifacts] = useState([])
 
-  const updateProvisioningStatus = (status, action, containerId) => {
+  const updateProvisioningStatus = ({ status, action, containerId, artifact }) => {
     containerId && setContainerId(containerId)
     status && setProvisioningStatus(status)
     action && setProvisioningAction(action)
+    artifact && setArtifacts(artifacts => [...artifacts, artifact])
   }
 
   return loading ? (
@@ -37,6 +41,7 @@ const DeployPage = () => {
       action={provisioningAction}
       updateProvisioningStatus={updateProvisioningStatus}
       containerId={containerId}
+      artifacts={artifacts}
     />
   )
 }

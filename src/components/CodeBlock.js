@@ -1,12 +1,14 @@
 import stylin from 'utils/stylin'
+import CopyButton from 'components/CopyButton'
 
 import Box from '@mui/material/Box'
 
 
-const CodeBlock = ({ data, sx, className }) => (
+const CodeBlock = ({ data, sx, copy, className }) => (
   <Container sx={sx} className={className}>
-    <JSONBlock>
+    <JSONBlock title={JSON.stringify(data, null, 2)}>
       {JSON.stringify(data, null, 2)}
+      {copy && (<StyledCopyButton itemToCopy={data} />)}
     </JSONBlock>
   </Container>
 )
@@ -20,7 +22,10 @@ const JSONBlock = stylin('pre')({
   fontFamily: 'monospace',
   borderRadius: '3px',
   width: '100%',
-  m: 0
+  m: 0,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  position: 'relative'
 })
 
 const Container = stylin(Box)({
@@ -28,4 +33,15 @@ const Container = stylin(Box)({
   display: 'flex',
   flexDirection: 'column',
   flexGrow: 1,
+})
+
+const StyledCopyButton = stylin(CopyButton)({
+  'svg': {
+    width: '15px',
+    height: '15px'
+  },
+  position: 'absolute',
+  top: '0px',
+  right: '0px',
+  zIndex: 10
 })

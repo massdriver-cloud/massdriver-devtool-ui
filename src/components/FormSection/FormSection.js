@@ -90,6 +90,7 @@ const FormSection = ({
                 <Description>{FORMDATA_DESCRIPTION}</Description>
               </Header>
               <CodeBlock
+                copy
                 data={formData}
                 sx={{ fontSize: '12px' }}
               />

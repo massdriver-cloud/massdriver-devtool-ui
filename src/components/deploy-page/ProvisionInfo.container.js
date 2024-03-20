@@ -7,6 +7,7 @@ const EnhancedProvisionInfo = ({
   action,
   updateProvisioningStatus,
   containerId,
+  artifacts
 }) => {
 
   // Adds confirmation modal on page leave
@@ -21,6 +22,7 @@ const EnhancedProvisionInfo = ({
       status={status}
       updateProvisioningStatus={updateProvisioningStatus}
       containerId={containerId}
+      artifacts={artifacts}
     />
   )
 }

@@ -1,9 +1,8 @@
 import useGetContainerInfo from 'hooks/queries/useGetContainerInfo'
 import SuccessInfo from 'components/deploy-page/SuccessInfo'
 
-const EnhancedSuccessInfo = ({ containerId }) => {
+const EnhancedSuccessInfo = ({ containerId, artifacts }) => {
   const { data, loading, error } = useGetContainerInfo({ containerId })
-
 
   return (
     <SuccessInfo
@@ -11,6 +10,7 @@ const EnhancedSuccessInfo = ({ containerId }) => {
       error={error}
       containerName={data?.name}
       containerId={containerId}
+      artifacts={artifacts}
     />
   )
 }

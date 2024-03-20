@@ -4,13 +4,13 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 
-const Section = ({ title, description, children }) => (
-  <SectionContainer>
-    <Header>
-      <Title>{title}</Title>
-      <Description>{description}</Description>
+const Section = ({ title, description, children, sx, className }) => (
+  <SectionContainer sx={sx} className={className}>
+    <Header className="section-header">
+      <Title className="section-title">{title}</Title>
+      <Description className="section-description">{description}</Description>
     </Header>
-    <Divider />
+    <Divider className="section-divider" />
     {children}
   </SectionContainer>
 )
