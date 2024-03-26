@@ -52,7 +52,7 @@ const ReviewStep = ({
         </Grid>
       )
     }
-    {children({ back: () => ({ successful: true, data: formData }), next: onNext })}
+    {children({ back: () => ({ successful: true }), next: onNext })}
   </Container>
 )
 
