@@ -121,6 +121,7 @@ const EnhancedFormSection = () => {
         presetsMenuData && isObjectAndEmpty(initialParams)
       )}
       hasStaleParams={false}
+      showMenu={presetsMenuData?.length > 0}
     />
   )
 }

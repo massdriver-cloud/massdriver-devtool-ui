@@ -52,6 +52,20 @@ const EnhancedStepper = ({
     }))
   }
 
+  const basicNext = data => {
+    data && setData(prevData => ({ ...prevData, [activeStep]: data }))
+    const nextStepId = getNextStepId(steps, activeStep)
+    setActiveStep(nextStepId)
+    setActionStates(getStepActionStates(steps, nextStepId))
+  }
+
+  const basicBack = (data) => {
+    data && setData(prevData => ({ ...prevData, [activeStep]: data }))
+    const prevStepId = getPreviousStepId(steps, activeStep)
+    setActiveStep(prevStepId)
+    setActionStates(getStepActionStates(steps, prevStepId))
+  }
+
   return (
     <Stepper
       steps={steps}
@@ -60,6 +74,8 @@ const EnhancedStepper = ({
       updateActionStates={setActionStates}
       generateNext={generateNext}
       generateBack={generateBack}
+      basicNext={basicNext}
+      basicBack={basicBack}
       data={data}
       childProps={childProps}
     />

@@ -25,7 +25,8 @@ const JSONBlock = stylin('pre')({
   m: 0,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  position: 'relative'
+  position: 'relative',
+  minHeight: '30px'
 })
 
 const Container = stylin(Box)({

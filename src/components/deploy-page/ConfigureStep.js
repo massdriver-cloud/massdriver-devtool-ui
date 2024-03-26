@@ -22,7 +22,8 @@ const ConfigureStep = ({
   presetOptions,
   onConfigOptionClick,
   shouldShowPresets,
-  hasStaleParams
+  hasStaleParams,
+  showMenu,
 }) => (
   <Container>
     {loading ? (
@@ -39,7 +40,7 @@ const ConfigureStep = ({
             </Description>
           </Header>
           <ConfigPanel
-            alwaysShowMenu
+            showMenu={showMenu}
             // Form stuff
             formContext={formContext}
             schema={schema}

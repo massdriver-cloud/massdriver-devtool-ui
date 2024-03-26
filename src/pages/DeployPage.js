@@ -9,8 +9,6 @@ import { INITIALIZED } from 'constants/progress-statuses'
 
 import Typography from '@mui/material/Typography'
 
-import SuccessInfo from 'components/deploy-page/SuccessInfo.container'
-
 const DeployPage = () => {
   const { data, loading, error } = useGetDeploySteps()
 

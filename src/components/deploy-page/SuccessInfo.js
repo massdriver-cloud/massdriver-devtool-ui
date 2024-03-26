@@ -50,7 +50,7 @@ const SuccessInfo = ({
                 The artifacts produced by the bundle. In Massdriver, these would appear as the right package handles.
               </Description>
             </Header>
-            <Artifacts container spacing='30px' alignItems="stretch" zeroMinWidth>
+            <Artifacts container spacing='30px' alignItems="stretch">
               {artifacts.map(({ data, specs, metadata }, index) => (
                 <Grid
                   item

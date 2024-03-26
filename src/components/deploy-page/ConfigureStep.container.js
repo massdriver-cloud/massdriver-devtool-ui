@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { NO_PRESET_SELECTED } from 'components/ConfigPanel/constants'
 
 import ConfigureStep from 'components/deploy-page/ConfigureStep'
-import { PENDING } from 'constants/progress-statuses'
 
 import {
   getPresetMenuData,
   generateHiddenUiSchemaFromPresetData
 } from 'components/ConfigPanel/ConfigPanel.helpers'
 import { isObjectAndEmpty, objectDeepMerge, expensiveJankyJsonCopy } from 'utils/data'
-import useGetFormSchemas from 'hooks/queries/useGetFormSchemas'
+import useGetConfigureStepData from 'hooks/queries/useGetConfigureStepData'
 import useNotice from 'hooks/useNotice'
 
 // TODO: Update the form npm package to allow exporting these helper functions. 
@@ -32,11 +31,11 @@ const sanitizeFormData = (formData, formSchema) => () => {
 
 const EnhancedConfigureStep = ({
   stepData,
-  updateProvisioningStatus,
   data,
+  next,
   ...props
 }) => {
-  const { errorNotice, infoNotice } = useNotice()
+  const { errorNotice } = useNotice()
 
   const [formData, setFormData] = useState()
   const [uiSchema, setUiSchema] = useState({})
@@ -46,11 +45,12 @@ const EnhancedConfigureStep = ({
   const {
     schema = {},
     uiSchema: initialUiSchema = {},
+    initialFormData = {},
     loading,
     error
-  } = useGetFormSchemas()
+  } = useGetConfigureStepData()
 
-  const initialParams = stepData || {}
+  const initialParams = stepData || initialFormData
 
   const filteredPresets = schema?.examples?.filter(
     example => example?.__name?.toLowerCase() !== 'wizard'
@@ -101,30 +101,17 @@ const EnhancedConfigureStep = ({
     setFormData(newFormData)
 
   const submitForm = () => {
-    fetch('http://127.0.0.1:8080/bundle/deploy', {
+    fetch('http://127.0.0.1:8080/bundle/params', {
       method: 'POST',
       headers: {
         'Content-type': "application/json"
       },
-      body: JSON.stringify({
-        action: 'provision',
-        params: formData,
-        ...(Object.keys(data.secrets || {}).length > 0 ? {
-          secrets: data.secrets
-        } : {}),
-      })
+      body: JSON.stringify(formData)
     })
       .then(res => res.json())
-      .then(data => {
-        infoNotice("Started Deployment.", {
-          preventDuplicate: true,
-          autoHideDuration: 5000,
-          disableWindowBlurListener: true
-        })
-        updateProvisioningStatus({ status: PENDING, action: 'provision', containerId: data?.containerID })
-      })
+      .then(data => next(formData))
       .catch(err => {
-        errorNotice("There was an issue starting the deployment.", {
+        errorNotice("There was an issue saving your params.", {
           preventDuplicate: true,
           autoHideDuration: 5000,
           disableWindowBlurListener: true
@@ -153,6 +140,7 @@ const EnhancedConfigureStep = ({
         presetsMenuData && isObjectAndEmpty(initialParams)
       )}
       hasStaleParams={false}
+      showMenu={presetsMenuData?.length > 0}
       {...props}
     />
   )
