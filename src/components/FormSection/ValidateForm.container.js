@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { NO_PRESET_SELECTED } from 'components/ConfigPanel/constants'
+import {
+  NO_PRESET_SELECTED,
+} from 'components/ConfigPanel/constants'
 
-import ConfigureStep from 'components/deploy-page/ConfigureStep'
-
+import ValidateForm from 'components/FormSection/ValidateForm'
 import {
   getPresetMenuData,
   generateHiddenUiSchemaFromPresetData
 } from 'components/ConfigPanel/ConfigPanel.helpers'
 import { isObjectAndEmpty, objectDeepMerge, expensiveJankyJsonCopy } from 'utils/data'
-import useGetConfigureStepData from 'hooks/queries/useGetConfigureStepData'
+import useGetFormSchemas from 'hooks/queries/useGetFormSchemas'
 import useNotice from 'hooks/useNotice'
 
 // TODO: Update the form npm package to allow exporting these helper functions. 
@@ -34,13 +35,8 @@ const sanitizeFormData = (formData, formSchema) => {
   }
 }
 
-const EnhancedConfigureStep = ({
-  stepData,
-  data,
-  next,
-  ...props
-}) => {
-  const { errorNotice } = useNotice()
+const EnhancedValidateForm = ({ updateDisplayFormData }) => {
+  const { successNotice } = useNotice()
 
   const [formData, setFormData] = useState()
   const [uiSchema, setUiSchema] = useState({})
@@ -53,12 +49,11 @@ const EnhancedConfigureStep = ({
   const {
     schema = {},
     uiSchema: initialUiSchema = {},
-    initialFormData = {},
     loading,
     error
-  } = useGetConfigureStepData()
+  } = useGetFormSchemas()
 
-  const initialParams = stepData || initialFormData
+  const initialParams = {}
 
   const filteredPresets = schema?.examples?.filter(
     example => example?.__name?.toLowerCase() !== 'wizard'
@@ -72,6 +67,7 @@ const EnhancedConfigureStep = ({
       return
     }
     setFormData(response)
+    updateDisplayFormData(response)
     setSelectedPreset(NO_PRESET_SELECTED)
     setIsExpandedView(true)
     setUiSchema(initialUiSchema)
@@ -92,6 +88,7 @@ const EnhancedConfigureStep = ({
 
     const preset = filteredPresets[event.currentTarget.value]
     setFormData(preset || {})
+    updateDisplayFormData(preset || {})
     setSelectedPreset(event.currentTarget.value)
     if (event.currentTarget.value === NO_PRESET_SELECTED) {
       setIsExpandedView(true)
@@ -110,31 +107,19 @@ const EnhancedConfigureStep = ({
     setIsExpandedView(isExpandedView => !isExpandedView)
   }
 
-  const onFormDataChange = ({ formData: newFormData }) =>
+  const onFormDataChange = ({ formData: newFormData }) => {
     setFormData(newFormData)
-
-  const submitForm = () => {
-    fetch('http://127.0.0.1:8080/bundle/params', {
-      method: 'POST',
-      headers: {
-        'Content-type': "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(res => res.json())
-      .then(data => next(formData))
-      .catch(err => {
-        errorNotice("There was an issue saving your params.", {
-          preventDuplicate: true,
-          autoHideDuration: 5000,
-          disableWindowBlurListener: true
-        })
-        errorNotice(err.toString())
-      })
+    updateDisplayFormData(newFormData)
   }
 
+  const submitForm = () => successNotice('Input passed form validation.', {
+    preventDuplicate: true,
+    autoHideDuration: 5000,
+    disableWindowBlurListener: true
+  })
+
   return (
-    <ConfigureStep
+    <ValidateForm
       loading={loading}
       error={error}
       schemaError={schemaError}
@@ -155,9 +140,8 @@ const EnhancedConfigureStep = ({
       )}
       hasStaleParams={false}
       showMenu={presetsMenuData?.length > 0}
-      {...props}
     />
   )
 }
 
-export default EnhancedConfigureStep
+export default EnhancedValidateForm

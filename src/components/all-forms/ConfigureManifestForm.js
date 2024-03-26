@@ -2,9 +2,6 @@ import Form from 'components/Form'
 import stylin from 'utils/stylin'
 import PropTypes from 'prop-types'
 
-import LoadingButton from '@mui/lab/LoadingButton'
-import Tooltip from '@mui/material/Tooltip'
-
 export const ConfigureManifestForm = ({
   schema,
   formData,

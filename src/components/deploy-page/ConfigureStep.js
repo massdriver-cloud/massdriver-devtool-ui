@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 const ConfigureStep = ({
   loading,
   error,
+  schemaError,
   children,
   // Form stuff
   formContext,
@@ -30,6 +31,8 @@ const ConfigureStep = ({
       <EmptyMessage>Loading...</EmptyMessage>
     ) : error ? (
       <EmptyMessage>Error: There was an issue parsing your configuration form.</EmptyMessage>
+    ) : schemaError ? (
+      <EmptyMessage>Error: There was an issue parsing your configuration form. Please ensure you have a valid JSON Schema in your <strong>massdriver.yaml</strong>.</EmptyMessage>
     ) : (
       <>
         <Column>
