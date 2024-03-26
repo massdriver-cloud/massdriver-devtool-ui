@@ -5,7 +5,7 @@ import useFetch from '../useFetch'
 const getTypeFromId = id => id ? id.split('/').slice(id.split('/').length - 2).join('/') : ''
 
 // Checks if section of file is an object and if it has "REPLACE ME" anywhere.
-const isConnectionSet = connection => typeof connection === 'object' && !JSON.stringify(connection).match('"REPLACE ME"')
+const isConnectionSet = connection => typeof connection === 'object' && Object.keys(connection)?.length > 0 && !JSON.stringify(connection).match('"REPLACE ME"')
 
 const CREDENTIALS = ['massdriver/aws-iam-role', 'massdriver/azure-service-principal', 'massdriver/gcp-service-account', 'massdriver/kubernetes-cluster']
 
