@@ -145,7 +145,7 @@ const EnhancedConnectionsStep = ({
       isModalOpen={isModalOpen}
       closeModal={closeModal}
       onConfirmModal={onConfirmModal}
-      next={onNext}
+      onNext={onNext}
       {...props}
     />
   )

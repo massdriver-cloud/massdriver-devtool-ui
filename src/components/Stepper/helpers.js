@@ -4,11 +4,11 @@ export const isCompleted = (steps = [], currentStep, activeStep) => getStepIndex
 
 export const equal = (id, activeStep) => id?.toString() === activeStep?.toString()
 
-export const getStepIndex = (steps = [], id) => steps.map(step => step.id).indexOf(id)
+export const getStepIndex = (steps = [], id = '') => steps.map(step => step.id).indexOf(id)
 
-export const getPreviousStepId = (steps, activeStep) => steps[getStepIndex(steps, activeStep) - 1].id
+export const getPreviousStepId = (steps, activeStep) => steps[getStepIndex(steps, activeStep) - 1]?.id
 
-export const getNextStepId = (steps, activeStep) => steps[getStepIndex(steps, activeStep) + 1].id
+export const getNextStepId = (steps, activeStep) => steps[getStepIndex(steps, activeStep) + 1]?.id
 
 
 const DEFAULT_ACTION_STATES = {

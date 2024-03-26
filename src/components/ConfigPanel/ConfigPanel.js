@@ -16,7 +16,7 @@ const ConfigPanel = ({
   children,
   sx,
   className,
-  alwaysShowMenu,
+  showMenu,
   // Form stuff
   formContext = {},
   schema,
@@ -45,7 +45,7 @@ const ConfigPanel = ({
       </Custom404>
     ) : (
       <>
-        {(alwaysShowMenu || shouldShowPresets) && (
+        {(showMenu || shouldShowPresets) && (
           <ConfigOptionsMenu
             presetOptions={presetOptions}
             selectedPreset={selectedPreset}

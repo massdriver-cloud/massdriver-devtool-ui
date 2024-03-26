@@ -22,7 +22,7 @@ import useGetPackageParams from 'hooks/queries/useGetPackageParams'
 import useConfigurePackage from 'hooks/mutations/useConfigurePackage'
 import useDeployPackage from 'hooks/mutations/useDeployPackage'
 
-const EnhancedConfigPanel = ({ packageId, alwaysShowMenu }) => {
+const EnhancedConfigPanel = ({ packageId, showMenu }) => {
   const [formData, setFormData] = useState()
   const [isSaveLoading, setIsSaveLoading] = useState(false)
   const [isDeployLoading, setIsDeployLoading] = useState(false)
@@ -170,7 +170,7 @@ const EnhancedConfigPanel = ({ packageId, alwaysShowMenu }) => {
       shouldShowPresets={Boolean(
         presetsMenuData && isObjectAndEmpty(data?.package?.params)
       )}
-      alwaysShowMenu={alwaysShowMenu}
+      showMenu={showMenu}
     />
   )
 }

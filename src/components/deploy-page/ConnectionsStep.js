@@ -15,7 +15,7 @@ const ConnectionsStep = ({
   closeModal,
   onConfirmModal,
   children,
-  next,
+  onNext,
 }) => (
   <>
     <Container>
@@ -71,7 +71,7 @@ const ConnectionsStep = ({
               )}
             </Column>
           </Column>
-          {children({ next })}
+          {children({ next: onNext })}
         </>
       )}
     </Container>
@@ -85,7 +85,7 @@ const ConnectionsStep = ({
       description={
         <>
           <Text>
-            You have selected to manually set credentials. Please update the <strong>_connections.auto.tfvars.json</strong> before continuing.
+            You have selected to manually set credentials. Please update the <strong>_connections.auto.tfvars.json</strong> before deploying. Your updated data may not be reflected in the UI until page reload.
           </Text>
           <SubText>If not updated properly, the deployment will fail.</SubText>
         </>

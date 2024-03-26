@@ -31,7 +31,7 @@ const SecretsStep = ({
             </Description>
           </Header>
           <Column gap='18px'>
-            {requiredSecrets.map(({ id, name, title, description, required, json, }) => (
+            {requiredSecrets.length > 0 ? requiredSecrets.map(({ id, name, title, description, required, json, }) => (
               <FieldContainer key={id}>
                 <SecretField
                   name={name}
@@ -49,7 +49,9 @@ const SecretsStep = ({
                 />
                 <FieldDescription>{description || ""}</FieldDescription>
               </FieldContainer>
-            ))}
+            )) : (
+              <EmptyMessage>This bundle has no required secrets...</EmptyMessage>
+            )}
           </Column>
         </Column>
         <Column>
@@ -60,7 +62,7 @@ const SecretsStep = ({
             </Description>
           </Header>
           <Column gap='18px'>
-            {optionalSecrets.map(({ id, name, title, description, required, json, }) => (
+            {optionalSecrets.length > 0 ? optionalSecrets.map(({ id, name, title, description, required, json, }) => (
               <FieldContainer key={id}>
                 <SecretField
                   name={name}
@@ -78,7 +80,9 @@ const SecretsStep = ({
                 />
                 <FieldDescription>{description || ""}</FieldDescription>
               </FieldContainer>
-            ))}
+            )) : (
+              <EmptyMessage>This bundle has no optional secrets...</EmptyMessage>
+            )}
           </Column>
         </Column>
         {children({ next: onSubmit, back: () => ({ successful: true, data: formData }) })}

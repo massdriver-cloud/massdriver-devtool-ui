@@ -34,7 +34,8 @@ const FormSection = ({
   presetOptions,
   onConfigOptionClick,
   shouldShowPresets = true,
-  hasStaleParams
+  hasStaleParams,
+  showMenu,
 }) => (
   <Section
     title={SECTION_TITLE}
@@ -59,7 +60,7 @@ const FormSection = ({
                 <Description>{FORM_DESCRIPTION}</Description>
               </Header>
               <ConfigPanel
-                alwaysShowMenu
+                showMenu={showMenu}
                 // Form stuff
                 formContext={formContext}
                 schema={schema}

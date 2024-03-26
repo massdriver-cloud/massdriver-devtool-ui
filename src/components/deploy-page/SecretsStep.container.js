@@ -3,6 +3,8 @@ import { isValidJsonObject } from 'utils/data'
 
 import useGetSecrets from 'hooks/queries/useGetSecrets'
 import SecretsStep from 'components/deploy-page/SecretsStep'
+import { PENDING } from 'constants/progress-statuses'
+import useNotice from 'hooks/useNotice'
 
 const formatSecrets = secrets => secrets ? ({
   requiredSecrets: secrets.filter(secret => secret.required),
@@ -21,9 +23,11 @@ const getSubmitErrors = (formData, data) => {
 
 const EnhancedSecretsStep = ({
   updateActionStates,
+  updateProvisioningStatus,
   stepData,
   ...props
 }) => {
+  const { errorNotice, infoNotice } = useNotice()
   const { data, loading, error } = useGetSecrets()
   const { requiredSecrets, optionalSecrets } = formatSecrets(data)
 
@@ -47,8 +51,6 @@ const EnhancedSecretsStep = ({
 
   const onChange = event => setFormData(formData => ({ ...formData, [event.target.name]: event.target.value }))
 
-  // console.log({ formData, stepData })
-
   const onSubmit = () => {
     const errors = getSubmitErrors(formData, data)
     if (errors) {
@@ -57,7 +59,34 @@ const EnhancedSecretsStep = ({
     }
     setFormErrors({})
 
-    return { successful: true, data: formData }
+    return fetch('http://127.0.0.1:8080/bundle/deploy', {
+      method: 'POST',
+      headers: {
+        'Content-type': "application/json"
+      },
+      body: JSON.stringify({
+        action: 'provision',
+        secrets: formData
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        infoNotice("Started Deployment.", {
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+          disableWindowBlurListener: true
+        })
+        updateProvisioningStatus({ status: PENDING, action: 'provision', containerId: data?.containerID })
+      })
+      .catch(err => {
+        errorNotice("There was an issue starting the deployment.", {
+          preventDuplicate: true,
+          autoHideDuration: 5000,
+          disableWindowBlurListener: true
+        })
+        errorNotice(err.toString())
+        return { successful: false }
+      })
   }
 
   return (

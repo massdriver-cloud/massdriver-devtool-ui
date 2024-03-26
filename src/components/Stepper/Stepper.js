@@ -22,6 +22,8 @@ const Stepper = ({
   updateActionStates,
   generateNext,
   generateBack,
+  basicNext,
+  basicBack,
   data,
   childProps,
 }) => {
@@ -52,6 +54,8 @@ const Stepper = ({
           updateActionStates={updateActionStates}
           generateNext={generateNext}
           generateBack={generateBack}
+          next={basicNext}
+          back={basicBack}
           data={data}
           stepData={data[activeStep]}
           {...childProps}
