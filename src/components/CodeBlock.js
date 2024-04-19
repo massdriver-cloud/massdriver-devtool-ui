@@ -8,7 +8,7 @@ const CodeBlock = ({ data, sx, copy, className }) => (
   <Container sx={sx} className={className}>
     <JSONBlock title={JSON.stringify(data, null, 2)}>
       {JSON.stringify(data, null, 2)}
-      {copy && (<StyledCopyButton itemToCopy={data} />)}
+      {copy && (<StyledCopyButton itemToCopy={JSON.stringify(data, null, 2)} />)}
     </JSONBlock>
   </Container>
 )

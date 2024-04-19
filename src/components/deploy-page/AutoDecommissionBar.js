@@ -11,7 +11,10 @@ const getText = (isCancelled, status, countdown, containerName) =>
     isCancelled ?
       'Bundle is not decommissioned. Please decommission before leaving the page.'
       :
-      `Decommissioning bundle in ${countdown} seconds...`
+      countdown.minutes > 0 ?
+        `Decommissioning bundle in ${countdown.minutes} minutes ${countdown.seconds} seconds...`
+        :
+        `Decommissioning bundle in ${countdown.seconds} seconds...`
     : status === PENDING ?
       'Decommissioning pending...'
       : status === RUNNING ?
@@ -35,6 +38,7 @@ const AutoDecommissionBar = ({
   countdown,
   isCancelled,
   status,
+  onAdd15MinutesClick,
   onCancelClick,
   onDecommissionClick,
   onBackClick
@@ -61,6 +65,14 @@ const AutoDecommissionBar = ({
               onClick={onDecommissionClick}
             >
               Try again
+            </StyledButton>
+          )}
+          {(status === INITIALIZED && !isCancelled) && (
+            <StyledButton
+              variant="outlined"
+              onClick={onAdd15MinutesClick}
+            >
+              +15 Minutes
             </StyledButton>
           )}
           {[INITIALIZED, COMPLETED, FAILED].includes(status) && (

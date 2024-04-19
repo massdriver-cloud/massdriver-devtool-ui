@@ -43,7 +43,7 @@ const EnhancedAutoDecommissionBar = () => {
   const countdown = useCountdown({
     minutes: 0,
     seconds: 30,
-    format: 's',
+    format: 'mm:ss',
     autoStart: true,
     onCompleted: onDecommissionClick
   })
@@ -76,6 +76,10 @@ const EnhancedAutoDecommissionBar = () => {
     }
   }, [containerId])
 
+  const onAdd15MinutesClick = () => {
+    countdown.reset({ minutes: countdown.minutes + 15, seconds: countdown.seconds })
+  }
+
   const onCancelClick = () => {
     setIsCancelled(true)
     countdown.pause()
@@ -93,9 +97,10 @@ const EnhancedAutoDecommissionBar = () => {
   return (
     <AutoDecommissionBar
       containerName={containerName}
-      countdown={countdown.formatted}
+      countdown={countdown}
       isCancelled={isCancelled}
       status={status}
+      onAdd15MinutesClick={onAdd15MinutesClick}
       onCancelClick={onCancelClick}
       onDecommissionClick={onDecommissionClick}
       onBackClick={onBackClick}
