@@ -77,7 +77,7 @@ const EnhancedAutoDecommissionBar = () => {
   }, [containerId])
 
   const onAdd15MinutesClick = () => {
-    countdown.reset({ minutes: 15, seconds: countdown.seconds })
+    countdown.reset({ minutes: countdown.minutes + 15, seconds: countdown.seconds })
   }
 
   const onCancelClick = () => {
