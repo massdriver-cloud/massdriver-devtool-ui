@@ -12,14 +12,26 @@ const ProvisionInfo = ({
   status,
   updateProvisioningStatus,
   containerId,
-  artifacts
+  artifacts,
+  deploymentEvents
 }) => (
   <Container>
     {
       status === COMPLETED ? (
-        <SuccessInfo containerId={containerId} artifacts={artifacts} />
+        <SuccessInfo
+          containerId={containerId}
+          artifacts={artifacts}
+          status={status}
+          action={action}
+          deploymentEvents={deploymentEvents}
+        />
       ) : status === FAILED ? (
-        <FailInfo containerId={containerId} />
+        <FailInfo
+          containerId={containerId}
+          status={status}
+          action={action}
+          deploymentEvents={deploymentEvents}
+        />
       ) : (
         <ResourceProgressView
           action={action}

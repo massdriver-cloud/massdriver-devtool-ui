@@ -16,12 +16,20 @@ const DeployPage = () => {
   const [provisioningAction, setProvisioningAction] = useState('')
   const [containerId, setContainerId] = useState('')
   const [artifacts, setArtifacts] = useState([])
+  const [deploymentEvents, setDeploymentEvents] = useState([])
 
-  const updateProvisioningStatus = ({ status, action, containerId, artifact }) => {
-    containerId && setContainerId(containerId)
+  const updateProvisioningStatus = ({ status, action, containerId, artifact, deploymentEvents }) => {
+    if (containerId) {
+      setContainerId(containerId)
+      setProvisioningStatus(INITIALIZED)
+      setProvisioningAction('')
+      setArtifacts([])
+      setDeploymentEvents([])
+    }
     status && setProvisioningStatus(status)
     action && setProvisioningAction(action)
     artifact && setArtifacts(artifacts => [...artifacts, artifact])
+    deploymentEvents && setDeploymentEvents(deploymentEvents)
   }
 
   return loading ? (
@@ -40,6 +48,7 @@ const DeployPage = () => {
       updateProvisioningStatus={updateProvisioningStatus}
       containerId={containerId}
       artifacts={artifacts}
+      deploymentEvents={deploymentEvents}
     />
   )
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import ResourceProgressViewer from 'components/ResourceProgressViewer/ResourceProgressViewer'
-import { formatResources } from 'components/ResourceProgressViewer/helpers'
 
 import { COMPLETED, FAILED, RUNNING } from 'constants/progress-statuses'
 
@@ -18,9 +17,9 @@ const ResourceProgressView = ({
   containerId
 }) => {
   const [events, setEvents] = useState([])
+
   useEffect(() => {
     const containerLogsSocket = new WebSocket(`ws://127.0.0.1:8080/containers/logs?id=${containerId}`)
-
     containerLogsSocket.onmessage = event => {
 
       setEvents(events => [...events, event.data])
@@ -48,7 +47,19 @@ const ResourceProgressView = ({
         return
       }
     }
+
+    return () => containerLogsSocket.close()
   }, [])
+
+  // This useEffect is saving all the deployment logs to state on a deploy success/failure.
+  // Another useEffect is needed because websocket .onmessage does not get state updates, so 'events' is an empty array.
+  useEffect(() => {
+    const lastEvent = events[events.length - 1]
+    const parsedEvent = lastEvent && JSON.parse(lastEvent)
+
+    if (parsedEvent?.['@message']?.includes('Apply complete!') || parsedEvent?.['@level'] === 'error') updateProvisioningStatus({ deploymentEvents: events })
+
+  }, [events])
 
   return (
     <ResourceProgressViewer
