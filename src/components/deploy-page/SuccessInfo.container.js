@@ -1,16 +1,19 @@
-import useGetContainerInfo from 'hooks/queries/useGetContainerInfo'
+import useToggle from 'hooks/useToggle'
 import SuccessInfo from 'components/deploy-page/SuccessInfo'
 
-const EnhancedSuccessInfo = ({ containerId, artifacts }) => {
-  const { data, loading, error } = useGetContainerInfo({ containerId })
+
+const EnhancedSuccessInfo = ({ artifacts, status, action, deploymentEvents }) => {
+  const { isOpen, open, close } = useToggle()
 
   return (
     <SuccessInfo
-      loading={loading}
-      error={error}
-      containerName={data?.name}
-      containerId={containerId}
+      isOpen={isOpen}
+      open={open}
+      close={close}
       artifacts={artifacts}
+      status={status}
+      action={action}
+      deploymentEvents={deploymentEvents}
     />
   )
 }
